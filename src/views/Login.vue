@@ -24,6 +24,7 @@
         <button @click="githubLogin">Github</button>
       </div>
       <router-link to="/register">register</router-link>
+      <router-link to="/forgetpassword">forgetpassword</router-link>
     </div>
   </div>
 </template>
@@ -43,11 +44,12 @@ export default {
     return {
       username: '',
       password: '',
+      email:'',
       loading: false
     }
   },
   methods: {
-    login: async function() { 
+    login: async function() {
       try{
         await login(this.username, this.password)
         this.$router.push({name: "ShowBlogs"})
@@ -55,7 +57,7 @@ export default {
         alert('Wrong passowrd or username!')
       }
     },
-    logout: function() { 
+    logout: function() {
       logout()
       this.$router.push({name: "ShowBlogs"})
     },
@@ -75,7 +77,7 @@ export default {
         window.location.href = "http://127.0.0.1:8080/#/show/blogs/"
       })
       .catch(err => {
-        if (err.message == 
+        if (err.message ==
               'Request failed with status code 401') {
           alert("your login token has expired, please login again.")
           logout()
@@ -101,7 +103,7 @@ export default {
 	margin: 0;
 	padding: 0;
 	font-family: sans-serif;
-  
+
 }
 .box{
   display: flex;

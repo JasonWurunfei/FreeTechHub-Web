@@ -62,6 +62,24 @@ class User extends Model {
     }
 
 
+    static async changeemail(pass,newemail) {
+        let res = await axios.post(BASE_URL+'user/changeemail/',
+         {password:pass, email1:newemail})
+        this.context = res.data.data
+        return this.context
+    }
+
+
+    async check_username(name) {
+        let res = await axios.get(BASE_URL + `checkusername/`, {
+            params: {
+                username: name,
+            }
+        })
+        return res.data
+    }
+
+
     // get model by id
     static async get(id) {
         return await Model._getOne(this.app_name, this.model_name, id, this)

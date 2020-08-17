@@ -16,6 +16,10 @@ import ShowQuestion from '@/views/question/ShowQuestion.vue'
 
 import Login from '@/views/Login.vue'
 import Search from '@/views/Search.vue'
+import Register from '@/views/Register.vue'
+import ForgetPassword from '@/ForgetPassword.vue'
+import Activate from '@/Activate.vue'
+import ResetPassword from '@/ResetPassword.vue'
 
 //Profile
 import Profile from '@/views/Profile'
@@ -27,7 +31,6 @@ import ProfileQuestions from '@/views/Profile/ProfileQuestions'
 import ChangeMail from '@/views/Profile/ChangeMail'
 import ChangePassword from '@/views/Profile/ChangePassword'
 import ProfileSettings from '@/views/Profile/ProfileSettings'
-import ForgetPassword from '@/views/Profile/ForgetPassword'
 import ProfileSkillTrees from '@/views/Profile/ProfileSkillTrees'
 import ProfileMessageCenter from '@/views/Profile/ProfileMessageCenter'
 import ProfileReply from '@/views/Profile/ProfileReply'
@@ -37,9 +40,13 @@ import SendRequest from '@/views/Profile/SendRequest.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/',                  name: 'Home',         component: Home },
-  { path: '/login',             name: 'Login',        component: Login },
-  { path: '/search',            name: 'Search',       component: Search },
+  { path: '/',                        name: 'Home',           component: Home },
+  { path: '/login',                   name: 'Login',          component: Login },
+  { path: '/search',                  name: 'Search',         component: Search },
+  { path: '/register',                name: 'Register',       component: Register },
+  { path: '/active/:activate/:id',    name: 'Activate',       component: Activate },
+  { path: '/forgetpassword',          name: 'ForgetPassword', component: ForgetPassword},
+  { path: '/forgetpassword/:code1/:id/:code2',  name: 'ResetPassword', component:ResetPassword},
   // blogs
   { path: '/show/blogs',        name: 'ShowBlogs',    component: ShowBlogs },
   { path: '/show/blog/:id',     name: 'ShowBlog',     component: ShowBlog },
@@ -77,8 +84,7 @@ const routes = [
       { path: 'settings',               name: 'ProfileSettings',component: ProfileSettings,
         children:[
           { path: 'changepassword/:id', name: 'ChangePassword', component: ChangePassword},
-          { path: 'changemail',         name: 'ChangeMail',     component: ChangeMail},
-          { path: 'forgetpassword',     name: 'ForgetPassword', component: ForgetPassword},
+          { path: 'changemail/:id',     name: 'ChangeMail',     component: ChangeMail},
         ]},
     ]},
 ]

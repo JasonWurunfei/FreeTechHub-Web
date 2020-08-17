@@ -4,25 +4,43 @@
       <form>
         <div id class="inputbox">
           <label>密码:</label>
-          <input type="email" required />
+          <input type="password" required  v-model="password"/>
         </div>
         <div id class="inputbox">
           <label>新邮箱:</label>
-          <input type="password" required />
+          <input type="email" required v-model="email1"/>
         </div>
         <div id class="inputbox">
           <label>确认邮箱:</label>
-          <input type="password" required />
+          <input type="email" required v-model="email2"/>
         </div>
-        <button type="submit" value="submit">确认修改</button>
+        <button type="submit" @click="test">确认修改</button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
+import User from '@/assets/utils/models/User'
 export default {
-  name: 'ChangeMail'
+  name: 'ChangeMail',
+  data() {
+    return {
+      password: '',
+      email1:'',
+      email2:'',
+    }
+  },
+    methods: {
+      test() {
+        User.changeemail(this.password, this.email1).then( res => {
+          alert(res.msg)
+          this.$router.push({
+            name: 'Login'
+          })
+        })
+      }
+    },
 }
 </script>
 
