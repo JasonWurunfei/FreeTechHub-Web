@@ -26,15 +26,17 @@ import Profile from '@/views/Profile'
 import ProfileInformation from '@/views/Profile/ProfileInformation'
 import ProfileBlogs from '@/views/Profile/ProfileBlogs'
 import ProfileFollow from '@/views/Profile/ProfileFollow'
-import ProfileFriends from '@/views/Profile/ProfileFriends'
+import ProfileFriends from '@/components/Profile/MessageCenter/ProfileFriends'
 import ProfileQuestions from '@/views/Profile/ProfileQuestions'
-import ChangeMail from '@/views/Profile/ChangeMail'
-import ChangePassword from '@/views/Profile/ChangePassword'
+import ChangeMail from '@/components/Profile/Settings/ChangeMail'
+import ChangePassword from '@/components/Profile/Settings/ChangePassword'
 import ProfileSettings from '@/views/Profile/ProfileSettings'
 import ProfileSkillTrees from '@/views/Profile/ProfileSkillTrees'
 import ProfileMessageCenter from '@/views/Profile/ProfileMessageCenter'
-import ProfileReply from '@/views/Profile/ProfileReply'
-import RequestFriend from '@/views/Profile/RequestFriend'
+import ProfileReply from '@/components/Profile/MessageCenter/ProfileReply'
+import RequestFriend from '@/components/Profile/MessageCenter/RequestFriend'
+import TransactionRecord from '@/views/Profile/TransactionRecord'
+//
 import EditProfile from '@/views/Profile/EditProfile.vue'
 import SendRequest from '@/views/Profile/SendRequest.vue'
 Vue.use(VueRouter)
@@ -65,23 +67,22 @@ const routes = [
   // profile
   { path: '/profile',           name: 'Profile',      component: Profile,
     children:[
-      { path: 'information/:id',  name: 'ProfileInformation',   component: ProfileInformation},
-      { path: 'blogs',            name: 'ProfileBlog',          component: ProfileBlogs},
-      { path: 'questions',        name: 'ProfileQuestions',     component: ProfileQuestions},
-      { path: 'edit/profile/:id', name: 'EditProfile',          component: EditProfile },
-      { path: 'follow/:id',       name: 'ProfileFollow',        component: ProfileFollow},
-      { path: 'sendrequest/:id',  name: 'SendRequest',          component: SendRequest },
-      { path: 'skilltrees',       name: 'ProfileSkillTrees',    component: ProfileSkillTrees},
-
-      { path: 'messagecenter',    name: 'ProfileMessageCenter', component: ProfileMessageCenter,
+      { path: 'information/:id',    name: 'ProfileInformation',   component: ProfileInformation,},
+      { path: 'blogs',              name: 'ProfileBlog',          component: ProfileBlogs},
+      { path: 'questions',          name: 'ProfileQuestions',     component: ProfileQuestions,},
+      { path: 'edit/profile/:id',   name: 'EditProfile',          component: EditProfile },
+      { path: 'follow/:id',         name: 'ProfileFollow',        component: ProfileFollow},
+      { path: 'sendrequest/:id',    name: 'SendRequest',          component: SendRequest },
+      { path: 'skilltrees',         name: 'ProfileSkillTrees',    component: ProfileSkillTrees},
+      { path: 'transactionrecord',  name: 'TransactionRecord',    component: TransactionRecord},
+      { path: 'messagecenter',      name: 'ProfileMessageCenter', component: ProfileMessageCenter,
         children:[
           { path: 'friends/:id',        name: 'Friends',        component: ProfileFriends},
           { path: 'reply',              name: 'Reply',          component: ProfileReply},
           { path: 'requestfriend/:id',  name: 'RequestFriend',  component: RequestFriend},
         ]
       },
-
-      { path: 'settings',               name: 'ProfileSettings',component: ProfileSettings,
+      { path: 'settings',               name: 'ProfileSettings',      component: ProfileSettings,
         children:[
           { path: 'changepassword/:id', name: 'ChangePassword', component: ChangePassword},
           { path: 'changemail/:id',     name: 'ChangeMail',     component: ChangeMail},

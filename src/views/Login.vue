@@ -5,7 +5,7 @@
       <img src="@/assets/img/loading.gif" alt="loding">
       <h2>Logining in...</h2>
       <p>Because our server has trouble connecting to Github therefore, it is very likely that we will take many attempts until you logged in, and we will refresh this page if the server timeouts.</p>
-      <p>if you want to use normal login in, click <a href="http://127.0.0.1:8080/#/login/">here.</a></p>
+      <p>if you want to use normal login in, click <a :href="'http://'+IP+':8080/#/login/'" >here.</a></p>
     </div>
     <div class="box" v-else>
       <form>
@@ -23,8 +23,8 @@
         <button @click="logout">Logout</button>
         <button @click="githubLogin">Github</button>
       </div>
-      <router-link to="/register">register</router-link>
-      <router-link to="/forgetpassword">forgetpassword</router-link>
+      <router-link tag="button" to="/register">register</router-link>
+      <router-link tag="button" to="/forgetpassword">Forget Password</router-link>
     </div>
   </div>
 </template>
@@ -35,6 +35,10 @@ import {login, logout} from '@/assets/utils/auth'
 import {getQueryParams} from '@/assets/utils/getQueryParams'
 import Navbar from '@/components/Navbar.vue'
 import axios from 'axios'
+import {IP} from '@/assets/utils/consts'
+import WebSocketHandle from '@/assets/utils/WebSocketHandle'
+
+
 export default {
   name: "Login",
   components: {
@@ -44,21 +48,24 @@ export default {
     return {
       username: '',
       password: '',
-      email:'',
-      loading: false
+      loading: false,
+      IP
     }
   },
   methods: {
     login: async function() {
       try{
-        await login(this.username, this.password)
+        let user = await login(this.username, this.password)
+        this.$store.commit("setSocketHandle", new WebSocketHandle(user.pk))
         this.$router.push({name: "ShowBlogs"})
       } catch(err) {
         alert('Wrong passowrd or username!')
       }
     },
+
     logout: function() {
       logout()
+      this.$store.commit("removeSocketHandle")
       this.$router.push({name: "ShowBlogs"})
     },
 
@@ -67,14 +74,14 @@ export default {
     },
 
     githubAuth() {
-      axios.post("http://127.0.0.1:8000/api/login/social/jwt/", {
+      axios.post(`http://${IP}:8000/api/login/social/jwt/`, {
         "provider": "github",
         "code": getQueryParams("code")
       })
       .then(res => {
         axios.defaults.headers['Authorization'] = 'JWT ' + res.data.token
         localStorage.setItem("token", 'JWT ' + res.data.token);
-        window.location.href = "http://127.0.0.1:8080/#/show/blogs/"
+        window.location.href = `http://${IP}:8080/#/show/blogs/`
       })
       .catch(err => {
         if (err.message ==
@@ -102,16 +109,18 @@ export default {
 .Login{
 	margin: 0;
 	padding: 0;
+  height: 100vh;
 	font-family: sans-serif;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .box{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
-  margin-top: 8%;
-	margin-left: 35%;
 	width: 500px;
   height: 400px;
 	padding: 40px;
@@ -176,5 +185,12 @@ a{
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+@media screen and (max-width: 550px) {
+  .box{
+    width: 100vw;
+    height: auto;
+    margin-left: 0;
+  }
 }
 </style>

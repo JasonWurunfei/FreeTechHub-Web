@@ -1,32 +1,38 @@
 <template>
 <div class="Register">
-  <form>
-    <table>
-      <tr>
-        <td>Username：</td>
-        <td><input type="text" v-model= 'username' @blur="validate_username" required=""/></td>
-        <td id="username"></td>
-      </tr>
+  <Navbar />
+  <div class="box">
+    <form>
+      <div class="inputbox">
+        <input type="text" v-model= 'username' @blur="validate_username" required=""/>
+        <label>Username：</label>
+        <p id="username"></p>
+      </div>
 
-      <tr>
-        <td>Email：</td>
-        <td><input type="email" v-model="email" @blur="validate_email" required=""/></td>
-        <td id="email"></td>
-      </tr>
+      <div class="inputbox">
+        <input type="email" v-model="email" @blur="validate_email" required=""/>
+        <label>Email：</label>
+        <p id="email"></p>
+      </div>
 
-      <tr>
-        <td>Password1：</td>
-        <td><input type="password" v-model="password1"  @blur="validate_password" required=""/></td>
-        <td id="password1"></td>
-      </tr>
-      <tr>
-        <td>Password2：</td>
-        <td><input type="password" v-model="password2"  @blur="validate_password2" required=""/></td>
-        <td id="password2"></td>
-      </tr>
-      <button @click="submit">submit</button>
-    </table>
-  </form>
+      <div class="inputbox">
+        <input type="password" v-model="password1"  @blur="validate_password" required=""/>
+        <label>Password1：</label>
+        <p id="password1"></p>
+      </div>
+      <div class="inputbox">
+        <input type="password" v-model="password1"  @blur="validate_password2" required=""/>
+        <label>Password1：</label>
+        <p id="password2"></p>
+      </div>
+      <div class="buttongroup">
+        <button @click="submit">submit</button>
+        <router-link tag="button" to="/login">Login</router-link>
+        <button @click="githubLogin">Github</button>
+      </div>
+    </form>
+  </div>
+
 </div>
 </template>
 
@@ -129,3 +135,93 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.Register{
+	margin: 0;
+	padding: 0;
+  height: 100vh;
+	font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.box{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+	width: 500px;
+  height: 400px;
+	padding: 40px;
+	box-sizing: border-box;
+  border-radius: 20px;
+	box-shadow: 0 15px 25px rgba(19, 18, 18, 0.5);
+  background: rgba(199, 148, 148, 0.8);
+}
+
+.box .inputbox{
+	position: relative;
+}
+
+.box .inputbox input{
+	width: 100%;
+	padding: 10px 0;
+	font-size: 20px;
+	color: #fff;
+	letter-spacing: 1px;
+	margin-bottom: 30px;
+	border: none;
+	border-bottom: 1px solid #fff;
+	outline: none;
+	background: transparent;
+}
+.box .inputbox label{
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 10px 0;
+	letter-spacing: 1px;
+	color: #FFFFFF;
+	pointer-events: none;
+	transition: 0.5s;
+}
+.box .inputbox input:focus ~ label,
+.box .inputbox input:valid ~ label{
+  top: -20px;
+  left: 0;
+  color: #3279db;
+  font-size: 16px;
+}
+button{
+  background: transparent;
+	border: none;
+	color: #FFFFFF;
+	background-color: #03A9F4;
+	padding: 10px 20px;
+  margin: 0 10px 0 10px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+.buttongroup{
+  text-align: center;
+}
+a{
+  text-align: center;
+  text-decoration: none;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+@media screen and (max-width: 550px) {
+  .box{
+    width: 100vw;
+    height: auto;
+    margin-left: 0;
+  }
+}
+</style>

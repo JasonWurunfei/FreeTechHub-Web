@@ -4,18 +4,23 @@
     <ul class="cardlist">
       <li v-for="series in all_series" :key="series.pk">
         <div class="card">
+          <img src="@/assets/img/landing.jpg" class="card-img">
           <h1>
             <router-link :to="{name: 'ShowOneSeries', params: {id: series.pk}}" >
               {{ series.name }}
             </router-link>
           </h1>
-          <p class="seriescontent">{{ series.description | stringfilter}}</p>
+          <div class="user">
+            <img class="avatar" src="@/assets/img/头像 女孩.svg">
+            <a href="">用户名</a>
+          </div>
           <h3>Tags: </h3>
           <ul>
             <li v-for="tag in series.tags" :key="tag.pk">
               {{tag.tag_name}}
             </li>
           </ul>
+          <p class="seriescontent">{{ series.description | stringfilter}}</p>
         </div>
       </li>
     </ul>
@@ -63,10 +68,12 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-decoration: none;
 }
 .ShowSeries {
-  width: 100vw;
-  height: 200vh;
+  width: 100%;
+  height: 100%;
+  margin: 10vh 0;
   padding: 0 10vw;
   display: flex;
   flex-direction: column;
@@ -77,10 +84,8 @@ export default {
   list-style: none;
   display: grid;
   width: 100%;
-  height: 200vh;
-  margin-top: 5%;
+  margin-top: 10%;
   grid-template-columns: 33.3% 33.3% 33.3%;
-  grid-template-rows: 33.3% 33.3% 33.3%;
 }
 .cardlist li{
   margin: 2vh 2vw;
@@ -94,8 +99,17 @@ export default {
   display: flex;
   flex-direction: column;
   transition: all 0.5s ease;
-  justify-content: space-evenly;
-  align-items: center;
+}
+.card-img{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+h1{
+  text-align: center;
+}
+h3{
+  margin: 20px 20px;
 }
 .card:hover {
   box-shadow: 0 12px 24px 0 rgba(0,0,0,0.2);
@@ -120,43 +134,51 @@ button {
   margin-bottom: 10%;
 }
 .seriescontent{
-  margin: 0 20px 0 20px;
+  margin: 20px;
+}
+.user{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.avatar{
+  width: 20%;
+  margin: 10px;
 }
 @media screen and (max-width: 1025px){
   .ShowSeries {
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  margin: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
   }
   .cardlist {
-  list-style: none;
-  display: grid;
-  width: 100%;
-  height: 200vh;
-  margin-top: 5%;
-  grid-template-columns: 50% 50%;
-  grid-template-rows: repeat(3, 33.3%);
+    list-style: none;
+    display: grid;
+    width: 100%;
+    height: 100%;
+    margin-top: 5%;
+    grid-template-columns: 50% 50%;
   }
-  .cardlist li{
-    max-height: 60vh;
+  .card{
+    width: 100%;
+    height: 100%;
   }
 }
 @media screen and (max-width: 650px) {
   .ShowSeries {
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  margin: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
   }
   .cardlist {
-  list-style: none;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  margin-top: 10%;
-  flex-direction: column;
-  justify-content: center;
+    list-style: none;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    margin-top: 10%;
+    flex-direction: column;
+    justify-content: center;
   }
   .cardlist li{
     height: 100%;

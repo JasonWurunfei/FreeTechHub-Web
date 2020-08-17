@@ -59,7 +59,7 @@ export default {
   font-size: 30px;
   border-right: 1px solid black;
 }
-.box div a:nth-child(3){
+.box div a:nth-child(2){
   border: none;
 }
 .box .inputbox {

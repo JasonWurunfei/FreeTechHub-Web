@@ -5,10 +5,14 @@
       <ul class="cardlist">
         <li v-for="question in questions" :key="question.pk">
           <div class="card">
-            <h4 class="title"><router-link :to="{name: 'ShowQuestion', params: {id: question.pk}}">{{question.title}}</router-link></h4>
-            <p class="content" v-html="$options.filters.stringfilter(question.content)"></p>
-            <!-- <p class="content" v-html="question.content"></p> -->
+            <img src="@/assets/img/landing.jpg" class="card-img">
+            <h2 class="title"><router-link :to="{name: 'ShowQuestion', params: {id: question.pk}}">{{question.title}}</router-link></h2>
+            <div class="user">
+              <img class="avatar" src="@/assets/img/头像 女孩.svg">
+              <a href="">用户名</a>
+            </div>
             <p class="bounty">Bounty:{{ question.bounty }}</p>
+            <p class="content" v-html="$options.filters.stringfilter(question.content)"></p>
           </div>
         </li>
       </ul>
@@ -67,7 +71,8 @@ button {
   margin-bottom: 10%;
 }
 .ShowQuestions {
-  height: 200vh;
+  width: 100%;
+  height: 100%;
   padding: 0 10vw;
   display: flex;
   flex-direction: column;
@@ -78,12 +83,11 @@ ul {
 }
 
 .title {
-  align-self: center;
-  margin: 3vh 0;
+  text-align: center;
 }
 
 .content {
-  margin: 0 3vw;
+  margin: 2vh 3vw;
   max-width: 100%;
 }
 
@@ -95,10 +99,10 @@ ul {
   list-style: none;
   display: grid;
   width: 100%;
-  height: 200vh;
+  height: 100%;
   margin-top: 5%;
   grid-template-columns: 33.3% 33.3% 33.3%;
-  grid-template-rows: 33.3% 33.3% 33.3%;
+  transition: all 0.5s ease;
 }
 .cardlist li{
   margin: 2vh 2vw;
@@ -114,30 +118,42 @@ ul {
   flex-direction: column;
   transition: all 0.5s ease;
   justify-content: space-around;
-  align-items: center;
 }
-
 a {
   text-decoration: none;
 }
-@media screen and (max-width: 1025px){
-  .ShowQuestions {
+.user{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.avatar{
+  width: 20%;
+  margin: 10px;
+}
+.card-img{
   width: 100%;
-  height: 100%;
   margin: 0;
   padding: 0;
+}
+@media screen and (max-width: 1025px){
+  .ShowQuestions {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
   }
   .cardlist {
-  list-style: none;
-  display: grid;
-  width: 100%;
-  height: 200vh;
-  margin-top: 5%;
-  grid-template-columns: 50% 50%;
-  grid-template-rows: repeat(3, 33.3%);
+    list-style: none;
+    display: grid;
+    width: 100%;
+    height: 100%;
+    margin-top: 5%;
+    grid-template-columns: 50% 50%;
   }
   .cardlist li{
-    max-height: 60vh;
+    height: 1005;
   }
 }
 @media screen and (max-width: 650px) {
@@ -151,6 +167,7 @@ a {
   list-style: none;
   display: flex;
   width: 100%;
+  height: 100%;
   margin-top: 10%;
   flex-direction: column;
   justify-content: center;

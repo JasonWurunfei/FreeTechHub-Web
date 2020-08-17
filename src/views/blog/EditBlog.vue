@@ -1,15 +1,13 @@
 <template>
   <div class="EditBlog">
     <Navbar />
-    <form class="blog-form">
-      <span class="title">
-        <h4>Title: </h4>
-        <input type="text" v-model="title" required="required"/>
-      </span>
-      <h2>content</h2>
-      <mavon-editor v-model="content" />
-      <button class="submit" @click="save">submit</button>
-    </form>
+    <span class="title">
+    <h4>Title: </h4>
+    <input type="text" v-model="title" required="required"/>
+    </span>
+    <h2>content</h2>
+    <mavon-editor v-model="content" />
+    <button class="submit" @click="save()">submit</button>
     <Footer/>
   </div>
 </template>
@@ -37,6 +35,7 @@ export default {
       blog_id: this.id,
       title: '',
       content: '',
+      blog: '',
       owner: '',
     }
   },
