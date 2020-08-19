@@ -1,4 +1,208 @@
+<!-- /* <style scoped>
+  h2{
+    text-align: center;
+    padding: 30px;
+    font-size: 18px;
+  }
+  #chart_example{
+    width: 50%;
+    height: 500px;
+    border: 1px solid red;
+    margin: 0 auto;
+  }
+</style>
 <template>
+  <div>
+    <h2>vue中插入Echarts示例</h2>
+    <div id="chart_example">
+
+    </div>
+  </div>
+</template>
+
+<script>
+  import echarts from 'echarts'
+  export default {
+    data() {
+      return {}
+    },
+    mounted() {
+      // let this_ = this;
+      let myChart = echarts.init(document.getElementById('chart_example'));
+      let option = {
+        color:['#4472C5','#ED7C30','#80FF80','#FF8096','#800080'],
+        tooltip: {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b}: {c} ({d}%)"
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        x: 'left',
+                        data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎'],
+                        textStyle: {//------------此处更改表格中的字体颜色
+                          fontSize: '12',
+                          color:'#fff'
+                        }
+                    },
+                    series: [
+                        {
+                            name:'访问来源',
+                            type:'pie',
+                            radius: ['50%', '70%'],
+                            avoidLabelOverlap: false,
+                            label: {
+                                normal: {
+                                    show: false,
+                                    position: 'center'
+                                },
+                                emphasis: {
+                                    show: true,
+                                    textStyle: {
+                                        fontSize: '30',
+                                        fontWeight: 'bold'
+                                    }
+                                }
+                            },
+                            labelLine: {
+                                normal: {
+                                    show: false
+                                }
+                            },
+                            data:[
+                                {value:335, name:'直接访问'},
+                                {value:310, name:'邮件营销'},
+                                {value:234, name:'联盟广告'},
+                                {value:135, name:'视频广告'},
+                                {value:1548, name:'搜索引擎'}
+                            ]
+                        }
+                    ]
+
+      };
+      myChart.setOption(option);
+
+      //建议加上以下这一行代码，不加的效果图如下（当浏览器窗口缩小的时候）。超过了div的界限（红色边框）
+      window.addEventListener('resize',function() {myChart.resize()});
+    },
+
+  }
+</script> */ -->
+
+<style scoped>
+  h2{
+    text-align: center;
+    padding: 30px;
+    font-size: 18px;
+  }
+  #chart_example{
+    width: 200px;
+    height: 200px;
+    border: 1px solid red;
+    margin: 0 auto;
+  }
+</style>
+<template>
+  <div >
+    <div id="chart_example">
+
+    </div>
+  </div>
+</template>
+
+<script>
+  import echarts from 'echarts'
+  import User from '@/assets/utils/models/User'
+  export default {
+    data() {
+      return {}
+    },
+    mounted() {
+      var data = [
+      ]
+      console.log(data)
+      var colorList = ['#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac']
+      let myChart = echarts.init(document.getElementById('chart_example'));
+      User.gettags() .then(res => {
+         this.data = res
+         console.log(this.data)
+         let option = {
+           series: [{
+                  name: 'Blog type',
+                  type: 'pie',
+                  radius: ['40%', '55%'],
+                  avoidLabelOverlap: true,
+                  itemStyle: {
+                      normal: {
+                          color: function(params) {
+                              return colorList[params.dataIndex]
+                          }
+                      }
+                  },
+                  labelLine: {
+                      normal: {
+                          length: 20,
+                          length2: 20,
+                          lineStyle: {
+                              color: '#2478EC'
+                          }
+                      }
+                  },
+
+                  label: {
+                      normal: {
+                          formatter: function(params) {
+
+                                  return(
+                                      '{a|'+ params.name + "}\n{b|" + params.value + '}'
+                                      )
+
+                          },
+                          show: true,
+                          padding: [-30 , -30, 0, -30],
+                          rich: {
+                              a: {
+                                  fontSize: 10,
+                                  color: '#CFDCFF',
+                                  textAlign: 'center'
+                              },
+                              b: {
+                                  fontSize: 10,
+                                  color: '#2AD0FF',
+                                  height: 10,
+                                  textAlign: 'center'
+                              }
+
+                          }
+
+                      },
+
+                  },
+
+                  data: this.data
+
+              }]
+
+         };
+
+               myChart.setOption(option);
+
+               //建议加上以下这一行代码，不加的效果图如下（当浏览器窗口缩小的时候）。超过了div的界限（红色边框）
+               window.addEventListener('resize',function() {myChart.resize()});
+      });
+
+    },
+    methods: {},
+    watch: {},
+    created() {
+
+    }
+  }
+</script>
+
+
+
+
+<!-- <template>
 <div class="Register">
   <Navbar />
   <div class="box">
@@ -224,4 +428,4 @@ a{
     margin-left: 0;
   }
 }
-</style>
+</style> -->

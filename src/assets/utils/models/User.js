@@ -11,7 +11,7 @@ class User extends Model {
     constructor({ id, last_login, is_superuser, date_joined,
                   username, email, date_of_birth, is_authorized,
                   balance, major, grade, bio,avatar, groups,
-                  user_permissions, follower_users }) {
+                  user_permissions, follower_users,totallikes }) {
 
         super({username, email, grade, bio, major})     // data fields that is requried when save
 
@@ -33,6 +33,7 @@ class User extends Model {
         this.bio = bio
         this.avatar = avatar
         this.groups = groups
+        this.totallikes = totallikes
         this.user_permissions = user_permissions
         this.follower_users = follower_users
         this.context = []
@@ -91,12 +92,8 @@ class User extends Model {
     }
 
 
-    async check_username(name) {
-        let res = await axios.get(BASE_URL + `checkusername/`, {
-            params: {
-                username: name,
-            }
-        })
+    static async gettags() {
+        let res = await axios.get(BASE_URL + `user/gettags/`)
         return res.data
     }
 

@@ -7,6 +7,8 @@ import 'mavon-editor/dist/css/index.css'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/atom-one-light.css'
 import filters from './filters/index'
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false
 
 Vue.use(mavonEditor)
