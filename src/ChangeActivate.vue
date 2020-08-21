@@ -6,11 +6,11 @@
 <script>
 import User from '@/assets/utils/models/User'
 export default {
-  name: "Activate",
+  name: "ChangeActivate",
   created() {
     var email = ''
-    var type = "validate"
-    User.validate(this.$route.params.activate, this.$route.params.id, type, email).then(res => {
+    var type = "changeemail"
+    User.validate(this.$route.params.activate, this.$route.params.id, type, this.$route.params.code2).then(res => {
       console.log(res)
       if (res === "true") {
         this.$router.push({
@@ -22,7 +22,7 @@ export default {
           cancelButtonText: 'cancel',
           type: 'warning'
         }).then(() => {
-          type = "resend"
+          type = "changeresend"
           User.validate(this.$route.params.activate, this.$route.params.id, type, email).then(() => {
             this.$message({
               type: 'success',

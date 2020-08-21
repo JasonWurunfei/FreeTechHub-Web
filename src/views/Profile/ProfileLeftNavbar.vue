@@ -87,6 +87,7 @@ export default {
   margin: 0;
   padding: 0;
   text-decoration: none;
+  background: #fbfcff;
 }
 .ProfileLeftNavbar{
   width: 100%;

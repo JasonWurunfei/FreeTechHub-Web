@@ -44,7 +44,7 @@ export default {
   height: 100vh;
   padding: 40px;
   box-sizing: border-box;
-  background: #d2e9f3;
+  background: #fafbff;
 }
 .box div{
   display: flex;

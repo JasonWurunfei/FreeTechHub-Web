@@ -1,49 +1,48 @@
 <template>
-  <div class="ProfileInformation">
-    <div class="box1">
-      <div id="image">
-        <img :src="profile_owner.avatar" />
-      </div>
-      <div>
-        <button v-if="profile_owner" @click="editProfile">Edit</button>
-        <p>major:{{profile_owner.major}}</p>
-        <p>Balance: {{profile_owner.blance}}</p>
-        <p>grade:{{profile_owner.grade}}</p>
-        <p>bio:{{profile_owner.bio}}</p>
-        <button v-if="profile_owner" @click='goSendrequest'>addfriend</button>
-          <button v-if="profile_owner" @click='test'>cece</button>
-        <input class="file" name="file" type="file" accept="image/png,image/gif,image/jpeg"  @change="update"/>
-      </div>
+<div class="ProfileInformation">
+  <div class="box1">
+    <div id="image">
+      <img :src="profile_owner.avatar" />
     </div>
-    <div class="box2">
-      <div>
-        <img src="@/assets/img/浏览量.svg" alt="">
-        <p>Total views: 666</p>
-        <img src="@/assets/img/粉丝趴.svg" alt="">
-        <p>Follows: {{totalfollower}}</p>
-        <br>
-        <img src="@/assets/img/点赞.svg" alt="">
-        <p>Total likes:{{profile_owner.totallikes}}</p>
-        <img src="@/assets/img/概率.svg" alt="">
-        <p>Accept rate: 99%</p>
-      </div>
-      <div>
-        <div id="chart_example">
-        </div>
-      </div>
-    </div>
-    <div class="box3">
-      <img src="@/assets/img/github活动表.jpg" />
+    <div>
+      <button v-if="profile_owner" @click="editProfile">Edit</button>
+      <p>major:{{profile_owner.major}}</p>
+      <p>Balance: {{profile_owner.blance}}</p>
+      <p>grade:{{profile_owner.grade}}</p>
+      <p>bio:{{profile_owner.bio}}</p>
+      <button v-if="profile_owner" @click='goSendrequest'>addfriend</button>
     </div>
   </div>
+  <div class="box2">
+    <div>
+      <img src="@/assets/img/浏览量.svg" alt="">
+      <p>Total views:{{profile_owner.totalviews}}</p>
+      <img src="@/assets/img/粉丝趴.svg" alt="">
+      <p>Follows: {{totalfollower}}</p>
+      <br>
+      <img src="@/assets/img/点赞.svg" alt="">
+      <p>Total likes:{{profile_owner.totallikes}}</p>
+      <img src="@/assets/img/概率.svg" alt="">
+      <p>Accept rate: 99%</p>
+    </div>
+    <div>
+      <div id="chart_example">
+      </div>
+    </div>
+  </div>
+  <div class="box3">
+    <img src="@/assets/img/github活动表.jpg" />
+  </div>
+</div>
 </template>
 
 <script>
 import echarts from 'echarts'
-import axios from 'axios'
 import User from '@/assets/utils/models/User'
 import Followership from '@/assets/utils/models/Followership'
-import { login_required } from '@/assets/utils/auth'
+import {
+  login_required
+} from '@/assets/utils/auth'
 import FriendRequest from '@/assets/utils/models/FriendRequest'
 export default {
   data() {
@@ -54,26 +53,6 @@ export default {
     }
   },
   methods: {
-    test(){
-
-      User.gettags() .then(res => {
-        console.log(res.Bdata)
-      })
-    },
-      update(e){
-        let file = e.target.files[0];
-        let param = new FormData();
-        param.append('file',file);
-        console.log(param.get('file'));
-        let config = {
-          headers:{'Content-Type':'multipart/form-data'}
-        };
-        axios.post('http://127.0.0.1:8000/user/upload/',param,config)
-          .then(response=>{
-            console.log(response.data);
-          })
-        },
-
     _getFriendRequest() {
       return new FriendRequest({
         to_user: this.user.pk,
@@ -81,8 +60,8 @@ export default {
       })
     },
     addfriend() {
-        let friendRequest = this._getFriendRequest()
-        friendRequest.save()
+      let friendRequest = this._getFriendRequest()
+      friendRequest.save()
     },
     goSendrequest() {
       this.$router.push({
@@ -109,115 +88,133 @@ export default {
         this.totalfollower = followers.length
       })
       User.get(this.profile_owner_id)
-      .then(owner => {
-        this.profile_owner = owner
-      })
+        .then(owner => {
+          this.profile_owner = owner
+        })
     })
   },
   mounted() {
-    var colorList = ['#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac']
+    var colorList = ['#9370DB', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4',
+      '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6',
+      '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff',
+      '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976',
+      '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac'
+    ]
     let myChart = echarts.init(document.getElementById('chart_example'));
-    User.gettags() .then(res => {
+    User.gettags(this.$route.params.id).then(res => {
       this.data1 = res.Bdata
       this.data2 = res.Qdata
-      console.log(this.data)
       let option = {
-      series: [
-      {
-        name: 'Blog type',
-        type: 'pie',
-        radius: ['40%', '55%'],
-        center: ['25%', '50%'],
-        avoidLabelOverlap: true,
-        itemStyle: {
-          normal: {
-            color: function(params) {
-              return colorList[params.dataIndex]
-            }
-          }
-        },
-        labelLine: {
-          normal: {
-            length: 20,
-            length2: 20,
-            lineStyle: {
-              color: '#2478EC'
-            }
-          }
-        },
-        label: {
-          normal: {
-            formatter: function(params) {
-              return('{a|'+ params.name + "}\n{b|" + params.value + '}')
-            },
-          show: true,
-          padding: [-30 , -30, 0, -30],
-          rich: {
-            a: {
-              fontSize: 10,
-              color: '#CFDCFF',
-              textAlign: 'center'
-            },
-            b: {
-              fontSize: 10,
-              color: '#2AD0FF',
-              height: 10,
-              textAlign: 'center'
-            }
-          }
-        },
-      },
-      data: this.data1
-    },
-    {
-      name: 'Blog type',
-      type: 'pie',
-      radius: ['40%', '55%'],
-      center: ['75%', '50%'],
-      avoidLabelOverlap: true,
-      itemStyle: {
-        normal: {
-          color: function(params) {
-            return colorList[params.dataIndex]
-          }
-        }
-      },
-      labelLine: {
-        normal: {
-          length: 20,
-          length2: 20,
-          lineStyle: {
-            color: '#2478EC'
-          }
-        }
-      },
-      label: {
-        normal: {
-          formatter: function(params) {
-            return('{a|'+ params.name + "}\n{b|" + params.value + '}')
+        title: {
+          text: "Blog type                                     Answer type",
+
+          textStyle: {
+            fontSize: 18,
+            fontFamily: "Trebuchet MS",
+            fontWeight: "bold",
+            color: "#9999FF"
           },
-        show: true,
-        padding: [-30 , -30, 0, -30],
-        rich: {
-          a: {
-            fontSize: 10,
-            color: '#CFDCFF',
-            textAlign: 'center'
+          bottom: "0%"
+        },
+
+        series: [{
+            name: 'Blog type',
+            type: 'pie',
+            radius: ['40%', '55%'],
+            center: ['25%', '50%'],
+            avoidLabelOverlap: true,
+            itemStyle: {
+              normal: {
+                color: function(params) {
+                  return colorList[params.dataIndex]
+                }
+              }
+            },
+            labelLine: {
+              normal: {
+                length: 22,
+                length2: 22,
+                lineStyle: {
+                  color: '#2478EC'
+                }
+              }
+            },
+            label: {
+              normal: {
+                formatter: function(params) {
+                  return ('{b|' + params.value + "}\n{a|" + params.name + '}')
+                },
+                show: true,
+                padding: [-30, -30, 0, -30],
+                rich: {
+                  b: {
+                    fontSize: 10,
+                    color: '#2AD0FF',
+                    textAlign: 'center'
+                  },
+                  a: {
+                    fontSize: 10,
+                    color: '#CFDCFF',
+                    height: 10,
+                    textAlign: 'center'
+                  }
+                }
+              },
+            },
+            data: this.data1
           },
-          b: {
-            fontSize: 10,
-            color: '#2AD0FF',
-            height: 10,
-            textAlign: 'center'
+          {
+            name: 'Answer type',
+            type: 'pie',
+            radius: ['40%', '55%'],
+            center: ['75%', '50%'],
+            avoidLabelOverlap: true,
+            itemStyle: {
+              normal: {
+                color: function(params) {
+                  return colorList[params.dataIndex]
+                }
+              }
+            },
+            labelLine: {
+              normal: {
+                length: 20,
+                length2: 20,
+                lineStyle: {
+                  color: '#2478EC'
+                }
+              }
+            },
+            label: {
+              normal: {
+                formatter: function(params) {
+                  return ('{b|' + params.value + "}\n{a|" + params.name + '}')
+                },
+                show: true,
+                padding: [-30, -30, 0, -30],
+                rich: {
+                  b: {
+                    fontSize: 10,
+                    color: '#CFDCFF',
+                    textAlign: 'center'
+                  },
+                  a: {
+                    fontSize: 10,
+                    color: '#2AD0FF',
+                    height: 10,
+                    textAlign: 'center'
+                  }
+                }
+              },
+            },
+            data: this.data2
           }
-        }
-      },
-    },
-    data: this.data2
-  }]
-};
-  myChart.setOption(option);
-  window.addEventListener('resize',function() {myChart.resize()});
+        ]
+      };
+      myChart.setOption(option);
+      window.addEventListener('resize', function() {
+        myChart.resize()
+      });
     });
 
   },
@@ -236,22 +233,26 @@ export default {
   justify-content: space-around;
   align-items: flex;
 }
+
 div {
-  background: #f9f6ff;
-  padding: 10px;
-  margin: 10px;
+  background: #fafbff;
+  /* padding: 10px;
+  margin: 10px; */
 }
-#chart_example{
+
+#chart_example {
   width: 400px;
   height: 190px;
 
 }
+
 img {
   width: 200px;
   height: 200px;
   border-radius: 50%;
   overflow: hidden;
 }
+
 .box1 {
   display: flex;
   justify-content: space-around;
@@ -259,23 +260,28 @@ img {
   align-items: baseline;
   flex-grow: unset;
 }
+
 .box1 div p {
   display: inline;
   padding-left: 30px;
 }
+
 .box1 div:nth-child(2) {
   position: relative;
   bottom: 100px;
 }
+
 .box2 {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
+
 .box2 div p {
   display: inline;
   padding-right: 30px;
 }
+
 .box2 div img {
   display: inline-block;
   width: 60px;
@@ -285,6 +291,7 @@ img {
   right: 5px;
   bottom: 20px;
 }
+
 .box3 img {
   border: none;
   border-radius: 0;

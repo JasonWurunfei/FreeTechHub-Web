@@ -1,15 +1,15 @@
 <template>
   <div class="navbar" id="navbar">
     <router-link to="/">FreeTechHub</router-link>
-    <router-link class="list" to="/about">About</router-link> 
-    <router-link class="list" to="/show/blogs">blogs</router-link> 
-    <router-link class="list" to="/show/series">series</router-link> 
-    <router-link class="list" to="/show/questions">questions</router-link> 
-    <a class="list" @click="goProfile()">Profile</a>
+    <router-link class="list" to="/about">About</router-link>
+    <router-link class="list" to="/show/blogs">blogs</router-link>
+    <router-link class="list" to="/show/series">series</router-link>
+    <router-link class="list" to="/show/questions">questions</router-link>
+    <a id="profile" class="list" @click="goProfile()">Profile</a>
     <input type="text" name="search" v-model="keywords" placeholder="Search"/>
     <button @click="search"><img src="@/assets/img/放大镜.svg" alt=""></button>
     <img class="expand" src="@/assets/img/Expand.svg" alt="">
-    <router-link v-if="is_login" to="/login">Logout</router-link> 
+    <router-link v-if="is_login" to="/login">Logout</router-link>
     <router-link v-else to="/login">Login</router-link>
   </div>
 </template>
@@ -53,6 +53,9 @@ export default {
 </script>
 
 <style  scoped>
+#profile{
+  color:#fff
+}
 *{
   margin: 0;
   padding: 0;

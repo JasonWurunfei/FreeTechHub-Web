@@ -102,7 +102,8 @@ export default {
 * {
   margin: 0;
   padding: 0;
-  background: #ffeef3;
+  /* background: #ffeef3; */
+  background: #fafbff;
 }
 .ProfileFollow {
   display: grid;
