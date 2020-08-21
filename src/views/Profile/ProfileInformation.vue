@@ -1,76 +1,72 @@
 <template>
-<div class="ProfileInformation">
-  <div class="box1">
-    <div id="image">
-      <img :src="profile_owner.avatar" />
-    </div>
-    <div>
-      <button v-if="profile_owner" @click="editProfile">Edit</button>
-      <p>major:{{profile_owner.major}}</p>
-      <p>Balance: {{profile_owner.blance}}</p>
-      <p>grade:{{profile_owner.grade}}</p>
-      <p>bio:{{profile_owner.bio}}</p>
-      <button v-if="profile_owner" @click='goSendrequest'>addfriend</button>
-    </div>
-  </div>
-  <div class="box2">
-    <div>
-      <img src="@/assets/img/浏览量.svg" alt="">
-      <p>Total views:{{profile_owner.totalviews}}</p>
-      <img src="@/assets/img/粉丝趴.svg" alt="">
-      <p>Follows: {{totalfollower}}</p>
-      <br>
-      <img src="@/assets/img/点赞.svg" alt="">
-      <p>Total likes:{{profile_owner.totallikes}}</p>
-      <img src="@/assets/img/概率.svg" alt="">
-      <p>Accept rate: 99%</p>
-    </div>
-    <div>
-      <div id="chart_example">
+  <div class="ProfileInformation">
+    <AddFriend
+      v-if="status && !_is_owner"
+      :status="this.status"
+      @closealert="closealert"
+      :_user=_user
+      :_visitor=_visitor />
+    <div class="box1">
+      <div id="image">
+        <img :src="profile_owner.avatar" />
+      </div>
+      <div>
+        <button v-if="profile_owner && _is_owner" @click="editProfile">Edit</button>
+        <p>major:{{profile_owner.major}}</p>
+        <p>Balance: {{profile_owner.blance}}</p>
+        <p>grade:{{profile_owner.grade}}</p>
+        <p>bio:{{profile_owner.bio}}</p>
+        <FollowButton
+         :_content_owner=_user
+         :_visitor=_visitor />
+        <button
+          @click="showalert"
+          id="addfriend-btn"
+          v-if="!_is_owner">Add Friend</button>
       </div>
     </div>
+    <div class="box2">
+      <div>
+        <img src="@/assets/img/浏览量.svg" alt="">
+         <p>Total views:{{profile_owner.totalviews}}</p>
+        <img src="@/assets/img/粉丝趴.svg" alt="">
+        <p>Follows: 0438</p>
+        <br>
+        <img src="@/assets/img/点赞.svg" alt="">
+        <p>Total likes:{{profile_owner.totallikes}}</p>
+        <img src="@/assets/img/概率.svg" alt="">
+        <p>Accept rate: 99%</p>
+      </div>
+      <div>
+        <div id="chart_example">
+        </div>
+      </div>
+    </div>
+    <div class="box3">
+      <img src="@/assets/img/github活动表.jpg" />
+    </div>
   </div>
-  <div class="box3">
-    <img src="@/assets/img/github活动表.jpg" />
-  </div>
-</div>
 </template>
 
 <script>
-import echarts from 'echarts'
 import User from '@/assets/utils/models/User'
-import Followership from '@/assets/utils/models/Followership'
-import {
-  login_required
-} from '@/assets/utils/auth'
-import FriendRequest from '@/assets/utils/models/FriendRequest'
+import echarts from 'echarts'
+import FollowButton from '@/components/FollowButton'
+import AddFriend from '@/components/AddFriend.vue'
 export default {
+  props: ['_user', '_visitor', '_is_owner'],
   data() {
     return {
-      profile_owner: '',
-      visitor: '',
-      totalfollower: '',
+      profile_owner: this._user,
+      visitor: this._visitor,
+      status: false,
     }
   },
+  components: {
+    FollowButton,
+    AddFriend
+  },
   methods: {
-    _getFriendRequest() {
-      return new FriendRequest({
-        to_user: this.user.pk,
-        from_user: this.from_user.pk
-      })
-    },
-    addfriend() {
-      let friendRequest = this._getFriendRequest()
-      friendRequest.save()
-    },
-    goSendrequest() {
-      this.$router.push({
-        name: "SendRequest",
-        params: {
-          id: this.$route.params.id
-        }
-      })
-    },
     editProfile() {
       this.$router.push({
         name: 'EditProfile',
@@ -79,27 +75,16 @@ export default {
         }
       })
     },
-  },
-  created() {
-
-    login_required(this, self => {
-      this.visitor = self
-      Followership.getFollowerlist().then(followers => {
-        this.totalfollower = followers.length
-      })
-      User.get(this.profile_owner_id)
-        .then(owner => {
-          this.profile_owner = owner
-        })
-    })
+    showalert(){
+      this.status = ! this.status
+    },
+    closealert(val){
+      this.status = val
+    },
   },
   mounted() {
-    var colorList = ['#9370DB', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4',
-      '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6',
-      '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff',
-      '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976',
-      '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976', '#6173d6', '#914ce5', '#42b1cc', '#ff55ac'
-    ]
+    var colorList = ['#9370DB', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976',
+    '#6173d6','#914ce5', '#42b1cc', '#ff55ac', '#0090ff']
     let myChart = echarts.init(document.getElementById('chart_example'));
     User.gettags(this.$route.params.id).then(res => {
       this.data1 = res.Bdata
@@ -222,76 +207,71 @@ export default {
     profile_owner_id() {
       return this.$route.params.id
     }
+  },
+  watch: {
+    _user(val) {
+      this.profile_owner = val
+    },
+    _visitor(val) {
+      this.visitor = val
+    }
   }
 }
 </script>
 
 <style scoped>
+#chart_example{
+  width: 400px;
+  height: 190px;
+}
 .ProfileInformation {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: flex;
 }
-
 div {
-  background: #fafbff;
-  /* padding: 10px;
-  margin: 10px; */
+  background: #f9f6ff;
+  padding: 10px;
+  margin: 10px;
 }
-
-#chart_example {
-  width: 400px;
-  height: 190px;
-
-}
-
 img {
   width: 200px;
   height: 200px;
   border-radius: 50%;
   overflow: hidden;
 }
-
 .box1 {
   display: flex;
   justify-content: space-around;
   flex-direction: row;
-  align-items: baseline;
+  align-items: center;
   flex-grow: unset;
 }
-
 .box1 div p {
   display: inline;
   padding-left: 30px;
 }
-
 .box1 div:nth-child(2) {
-  position: relative;
   bottom: 100px;
 }
-
 .box2 {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
-
 .box2 div p {
   display: inline;
   padding-right: 30px;
 }
-
 .box2 div img {
   display: inline-block;
   width: 60px;
   height: 60px;
-  position: relative;
   top: 28px;
   right: 5px;
   bottom: 20px;
 }
-
 .box3 img {
   border: none;
   border-radius: 0;

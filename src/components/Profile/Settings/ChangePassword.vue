@@ -89,7 +89,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          User.changepassword(this.ruleForm.oldpass, this.ruleForm.email).then(() => {
+          User.changepassword(this.ruleForm.oldpass, this.ruleForm.pass).then(() => {
             this.$notify({
               title: 'Successfully changed',
               type: 'success'

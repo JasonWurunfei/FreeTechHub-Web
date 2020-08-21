@@ -2,6 +2,8 @@ import Model from "./Model"
 import FriendRequest from "./FriendRequest"
 import axios from 'axios'
 import BASE_URL from '../consts'
+import Followership from './Followership'
+
 class User extends Model {
     static app_name = 'user'
     static model_name = 'user'
@@ -11,9 +13,9 @@ class User extends Model {
     constructor({ id, last_login, is_superuser, date_joined,
                   username, email, date_of_birth, is_authorized,
                   balance, major, grade, bio,avatar, groups,
-                  user_permissions, follower_users,totallikes,totalviews}) {
+                  user_permissions,totallikes,totalviews}) {
 
-        super({username, email, grade, bio, major})     // data fields that is requried when save
+        super({username, email, grade, bio, major, balance})     // data fields that is requried when save
 
         // required data fields
         this.app_name = 'user'
@@ -27,7 +29,6 @@ class User extends Model {
         this.date_of_birth= date_of_birth
         this.last_login = last_login
         this.is_authorized = is_authorized
-        this.balance = balance
         this.major = major
         this.grade = grade
         this.bio = bio
@@ -36,7 +37,6 @@ class User extends Model {
         this.totallikes = totallikes
         this.totalviews= totalviews
         this.user_permissions = user_permissions
-        this.follower_users = follower_users
         this.context = []
         this.newMessageNum = 0
     }
@@ -47,6 +47,46 @@ class User extends Model {
         return new User(res.data)
     }
 
+    // get lists of followers and followings
+    async getFollowershipList() {
+        let res = await axios.get(BASE_URL+`user/getfollowerships/${this.pk}/`)
+        let followers = []
+        for (let follower of res.data.followers) {
+            followers.push(new User(follower))
+        }
+        let followings = []
+        for (let following of res.data.followings) {
+            followings.push(new User(following))
+        }
+        return {
+            followers: followers,
+            followings: followings
+        }
+    }
+
+    async follow(user_id) {
+        let followership = new Followership({
+            following: user_id,
+            follower: this.pk
+        })
+        let res = await followership.save()
+        return res.data
+    }
+
+    async unfollow(user_id) {
+        let res = await axios.post(BASE_URL+'user/unfollow/', {
+            following_id: user_id,
+            follower_id: this.pk
+        })
+        return res.data
+    }
+
+    async is_followed(user_id) {
+        let res = await axios.get(
+            BASE_URL+`user/followship_check/${this.pk}/${user_id}`)
+        return res.data
+    }
+
     // get all the friends of this user
     async getFriends() {
         let res = await axios.get(BASE_URL+`user/getfriends/${this.pk}/`)
@@ -55,6 +95,17 @@ class User extends Model {
             friends.push(new User(raw_user))
         }
         return friends
+    }
+
+    // send a friend request
+    async friend(user_id, note) {
+        let friend_request = new FriendRequest({
+            sender: this.pk,
+            receiver: user_id,
+            note: note
+        })
+        let res = await friend_request.save()
+        return res.data
     }
 
     // get all the received friend requests of this user

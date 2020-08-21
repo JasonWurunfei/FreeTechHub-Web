@@ -44,7 +44,7 @@
         </router-link>
       </li>
       <li v-if="is_owner">
-        <router-link :to="{name:'TransactionRecord'}">
+        <router-link v-if="user != ''" :to="{name:'TransactionRecord', params:{id: this.user.pk}}">
           <img src="@/assets/img/交易提醒.svg"/>
           <span>TransactionRecord</span>
         </router-link>
@@ -66,18 +66,14 @@
 </template>
 
 <script>
-import {login_required} from '@/assets/utils/auth'
 export default {
   name: "ProfileLeftNavbar",
-  props: ['_is_owner'],
+  props: ['_is_owner', '_user'],
   data() {
     return {
-      user: '',
+      user: this._user,
       is_owner: this._is_owner
     }
-  },
-  created() {
-    login_required(this, user => this.user = user)
   },
 }
 </script>

@@ -1,6 +1,7 @@
 <template>
   <div class="ShowBlogs">
-    <Navbar/>
+    <StarBackground/>
+    <Navbar :_user="user"/>
     <h1>Blogs</h1>
     <ul class="cardlist">
       <li v-for="blog in blogs" :key="blog.pk">
@@ -13,7 +14,9 @@
           </h3>
           <div class="user">
             <img class="avatar" src="@/assets/img/头像 女孩.svg">
-            <a href="">用户名</a>
+            <router-link :to="{name: 'ProfileInformation', params: {id: blog.owner_instance.pk}}">
+              {{blog.owner_instance.username}}
+            </router-link>
           </div>
           <h4>Tags: </h4>
           <ul class="tag-list">
@@ -34,12 +37,14 @@ import Blog from '@/assets/utils/models/Blog'
 import { is_authenticated, login_required } from '@/assets/utils/auth'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
+import StarBackground from '@/components/StarBackground'
 
 export default {
   name: "ShowBlog",
   components: {
     Navbar,
-    Footer
+    Footer,
+    StarBackground
   },
   data() {
     return {
@@ -49,6 +54,7 @@ export default {
       pagenumber: 1,
       blogshow: '',
       currentpage: 0,
+      user: '',
     }
   },
   methods: {
@@ -58,6 +64,7 @@ export default {
   },
   created() {
     is_authenticated(this).then(() => {
+      this.user = this.$store.state.user
       Blog.all().then(blogs => this.blogs = blogs)
     })
   },
@@ -70,7 +77,6 @@ export default {
   padding: 0;
   box-sizing: border-box;
 }
-
 button {
   border: 0;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);

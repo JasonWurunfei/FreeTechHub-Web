@@ -1,9 +1,15 @@
 <template>
   <div class="Profile">
-    <ProfileLeftNavbar v-if="profile_owner != ''" class="sidebar" :_is_owner=is_owner />
+    <ProfileLeftNavbar class="sidebar"
+      v-if="profile_owner != '' && visitor != ''" 
+      :_is_owner=is_owner 
+      :_user=profile_owner />
     <transition>
       <router-view class="content" mode="out-in" 
-        v-if="profile_owner != ''" :_user=profile_owner :_is_owner=is_owner>
+        v-if="profile_owner != '' && visitor != ''" 
+        :_user=profile_owner 
+        :_is_owner=is_owner
+        :_visitor=visitor >
       </router-view>
     </transition>
   </div>
@@ -23,17 +29,21 @@ export default {
   data() {
     return {
       profile_owner: '',
+      visitor: '',
       is_owner: false
     }
   },
   methods: {
     load() {
       login_required(this, visitor => {
+        this.visitor = visitor
         if(this.user_id != undefined) {
           User.get(this.user_id).then(user =>{
             this.profile_owner = user
             if(this.profile_owner.pk == visitor.pk) {
               this.is_owner = true
+            } else {
+              this.is_owner = false
             }
           })
         }
@@ -50,7 +60,8 @@ export default {
   },
   watch: {
     user_id() {
-      this.user = ''
+      this.profile_owner = ''
+      this.visitor = ''
       this.load()
     }
   }
@@ -96,6 +107,9 @@ export default {
   grid-template-areas: "content";
   grid-template-rows: 100%;
   transition: all 0.5s ease-in-out;
+  }
+  .content{
+    height: 100vh;
   }
 }
 </style>
