@@ -32,6 +32,7 @@ class User extends Model {
         this.major = major
         this.grade = grade
         this.bio = bio
+        this.email = email
         this.avatar = avatar
         this.groups = groups
         this.totallikes = totallikes
@@ -128,9 +129,10 @@ class User extends Model {
         return requests
     }
 
+
     static async changepassword(oldpass,newpass) {
         let res = await axios.post(BASE_URL+'user/changepassword/',
-         {oldpassword:oldpass, newpassword1:newpass})
+         {oldpassword:oldpass, newpassword:newpass})
         this.context = res.data.data
         return this.context
     }
@@ -141,14 +143,6 @@ class User extends Model {
          {password:pass, email1:newemail})
         this.context = res.data.data
         return this.context
-    }
-
-    //check changeemail’s email
-    static async checkchangeemail(Email) {
-        let res = await axios.post(BASE_URL + `user/checkchangeemail/`,
-          {email: Email}
-        )
-        return res.data
     }
 
     // upload photo as avatar
@@ -188,11 +182,11 @@ class User extends Model {
     }
 
     //check whether the verification code is correct
-    static async validate(Code, User_id, Type, Email){
+    static async validate(Code, User_id, request_type, Email){
         let res = await axios.post(BASE_URL +`user/validate/`, {
           code: Code,
           user_id: User_id,
-          type: Type,
+          type: request_type,
           email: Email
         })
         return res.data

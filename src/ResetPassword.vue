@@ -68,9 +68,6 @@ export default {
   };
 },
   methods: {
-    githubLogin() {
-      window.location.href = "https://github.com/login/oauth/authorize/?client_id=5ee059616c2412fba0e3&redirect_uri=http:%2F%2F127.0.0.1:8080%2F%23%2Flogin%2F"
-    },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {

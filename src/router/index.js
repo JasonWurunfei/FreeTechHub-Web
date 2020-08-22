@@ -47,8 +47,8 @@ const routes = [
   { path: '/search',                  name: 'Search',         component: Search },
   { path: '/register',                name: 'Register',       component: Register },
   { path: '/active/:activate/:id',    name: 'Activate',       component: Activate },
-  { path: '/active/:activate/:id/:code2',          name: 'ChangeActivate', component: ChangeActivate },
-  { path: '/forgetpassword/:code1/:id/:code2',     name: 'ResetPassword',  component: ResetPassword },
+  { path: '/active/:activate/:id/:email',  name: 'ChangeActivate', component: ChangeActivate },
+  { path: '/forgetpassword/:code/:id/',    name: 'ResetPassword',  component: ResetPassword },
   // blogs
   { path: '/show/blogs',        name: 'ShowBlogs',    component: ShowBlogs },
   { path: '/show/blog/:id',     name: 'ShowBlog',     component: ShowBlog },

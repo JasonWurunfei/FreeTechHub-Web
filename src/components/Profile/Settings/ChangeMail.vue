@@ -51,7 +51,8 @@ export default {
       } else if (apos < 1 || dotpos - apos < 2) {
         callback(new Error('Please enter the correct email address'));
       } else {
-        User.checkchangeemail(value).then(res => {
+        var type = "email"
+        User.checkrepeat(value, type).then(res => {
           if (res.count > 0) {
             callback(new Error('Email name already exists'));
           } else {

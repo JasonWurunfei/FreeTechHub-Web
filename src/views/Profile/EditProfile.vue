@@ -5,6 +5,10 @@
       <input class="file" name="file" type="file" accept="image/png,image/gif,image/jpeg" @change="update" />
     </div>
     <div class="inputbox">
+      <input type="text" v-model="username" required="" />
+      <label>Username: </label>
+    </div>
+    <div class="inputbox">
       <input type="text" v-model="major" required="" />
       <label>major: </label>
     </div>
@@ -29,12 +33,12 @@ export default {
   components: {},
   data() {
     return {
-      user: this._user,
-      username: this._user.username,
-      email: this._user.email,
-      bio: this._user.bio,
-      grade: this._user.grade,
-      major: this._user.major,
+      id: this._user.pk,
+      username: '',
+      email :'',
+      bio: '',
+      grade: '',
+      major: '',
     }
   },
   methods: {
@@ -55,7 +59,7 @@ export default {
         grade: this.grade,
         major: this.major,
         bio: this.bio,
-        email: this.email,
+        email:this.email,
       })
     },
 
@@ -69,6 +73,22 @@ export default {
           }
         })
       })
+    },
+    load(id) {
+      User.get(id)
+      .then(user => {
+        this.id = user.pk
+        this.username = user.username
+        this.grade = user.grade
+        this.bio = user.bio
+        this.major = user.major
+        this.email = user.email
+      })
+    }
+  },
+  created() {
+    if(this.id != undefined) {
+      this.load(this.id)
     }
   },
 }

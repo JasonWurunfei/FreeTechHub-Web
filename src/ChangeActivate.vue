@@ -9,9 +9,8 @@ export default {
   name: "ChangeActivate",
   created() {
     var email = ''
-    var type = "changeemail"
-    User.validate(this.$route.params.activate, this.$route.params.id, type, this.$route.params.code2).then(res => {
-      console.log(res)
+    var request_type = "change_email"
+    User.validate(this.$route.params.activate, this.$route.params.id, request_type, this.$route.params.email).then(res => {
       if (res === "true") {
         this.$router.push({
           name: "ShowBlogs"
@@ -22,8 +21,8 @@ export default {
           cancelButtonText: 'cancel',
           type: 'warning'
         }).then(() => {
-          type = "changeresend"
-          User.validate(this.$route.params.activate, this.$route.params.id, type, email).then(() => {
+          request_type = "resend_change_email"
+          User.validate(this.$route.params.activate, this.$route.params.id, request_type, email).then(() => {
             this.$message({
               type: 'success',
               message: 'Send successful!'
