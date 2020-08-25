@@ -12,8 +12,8 @@ class User extends Model {
     // {id: xxx, ....(other data fields)}
     constructor({ id, last_login, is_superuser, date_joined,
                   username, email, date_of_birth, is_authorized,
-                  balance, major, grade, bio,avatar, groups,
-                  user_permissions,totallikes,totalviews}) {
+                  balance, major, grade, bio, avatar, groups,
+                  user_permissions, totallikes, totalviews}) {
 
         super({username, email, grade, bio, major, balance})     // data fields that is requried when save
 
@@ -131,16 +131,16 @@ class User extends Model {
 
 
     static async changepassword(oldpassword, newpassword) {
-        let res = await axios.post(BASE_URL+'user/changepassword/',
-         {oldpassword, newpassword})
+        let res = await axios.post(BASE_URL+'user/changepassword/', {
+            oldpassword, newpassword})
         this.context = res.data.data
         return this.context
     }
 
 
     static async changeemail(password, email) {
-        let res = await axios.post(BASE_URL+'user/changeemail/',
-         {password, email})
+        let res = await axios.post(BASE_URL+'user/changeemail/', {
+            password, email})
         this.context = res.data.data
         return this.context
     }
@@ -165,8 +165,8 @@ class User extends Model {
 
     // check whether the username or email exist
     static async checkrepeat(value, type) {
-        let res = await axios.post(BASE_URL + `user/checkrepeat/`,
-          {value, type})
+        let res = await axios.post(BASE_URL + `user/checkrepeat/`, {
+            value, type})
         return res.data
     }
 
@@ -180,27 +180,27 @@ class User extends Model {
     //check whether the verification code is correct
     static async validate(code, user_id, type, email){
         let res = await axios.post(BASE_URL +`user/validate/`, {
-          code, user_id, type, email})
+            code, user_id, type, email})
         return res.data
     }
 
     //send forgetpassword email
     static async forgetpassword(email){
         let res = await axios.post(BASE_URL +`user/send_change/`, {
-          email})
+            email})
         return res.data
     }
 
     //check oldpassword right or not
     static async checkpassword(password){
         let res = await axios.post(BASE_URL +`user/checkpassword/`, {
-          password})
+            password})
         return res.data
     }
 
     static async resetpassword(password, id){
         let res = await axios.post(BASE_URL +`user/resetpassword/`, {
-          password, id})
+            password, id})
         return res.data
     }
 
