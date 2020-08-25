@@ -46,7 +46,7 @@ import Transcation from '@/assets/utils/models/Transaction'
 
 export default {
   name: "TransactionRecord",
-  
+
   props: ['_user', '_is_owner'],
   data(){
     return {
@@ -65,7 +65,6 @@ export default {
 <style scoped>
 .TransactionRecord {
   background: #fafbff;
-  /* background: #b7e1f5; */
   width: 100%;
   height: 100vh;
   overflow: scroll;

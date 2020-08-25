@@ -17,9 +17,9 @@ import ShowQuestion from '@/views/question/ShowQuestion.vue'
 import Login from '@/views/Login.vue'
 import Search from '@/views/Search.vue'
 import Register from '@/views/Register.vue'
-import Activate from '@/Activate.vue'
-import ChangeActivate from '@/ChangeActivate.vue'
-import ResetPassword from '@/ResetPassword.vue'
+import Activate from '@/views/Activate.vue'
+import ChangeActivate from '@/views/ChangeActivate.vue'
+import ResetPassword from '@/views/ResetPassword.vue'
 
 //Profile
 import Profile from '@/views/Profile'

@@ -16,7 +16,7 @@ export default {
           name: "ShowBlogs"
         })
       } else {
-        this.$confirm('Verification codes expire after 5 minutes, If you have create a account, only the code requested for your current address will work.', 'Warning', {
+        this.$confirm('Verification codes expire after 5 minutes, If you have create an account, only the code requested for your current address will work.', 'Warning', {
           confirmButtonText: 'Get again',
           cancelButtonText: 'cancel',
           type: 'warning'

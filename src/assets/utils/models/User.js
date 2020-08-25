@@ -130,17 +130,17 @@ class User extends Model {
     }
 
 
-    static async changepassword(oldpass,newpass) {
+    static async changepassword(oldpassword, newpassword) {
         let res = await axios.post(BASE_URL+'user/changepassword/',
-         {oldpassword:oldpass, newpassword:newpass})
+         {oldpassword, newpassword})
         this.context = res.data.data
         return this.context
     }
 
 
-    static async changeemail(pass,newemail) {
+    static async changeemail(password, email) {
         let res = await axios.post(BASE_URL+'user/changeemail/',
-         {password:pass, email1:newemail})
+         {password, email})
         this.context = res.data.data
         return this.context
     }
@@ -149,11 +149,11 @@ class User extends Model {
     static async upload(e){
       let file = e.target.files[0];
       let param = new FormData();
-      param.append('file',file);
+      param.append('file', file);
       let config = {
-        headers:{'Content-Type':'multipart/form-data'}
+        headers:{'Content-Type': 'multipart/form-data'}
       };
-      let res = await axios.post(BASE_URL+'user/upload/',param,config)
+      let res = await axios.post(BASE_URL+'user/upload/', param,config)
       return res.data
     }
 
@@ -164,55 +164,43 @@ class User extends Model {
     }
 
     // check whether the username or email exist
-    static async checkrepeat(name, genre) {
+    static async checkrepeat(value, type) {
         let res = await axios.post(BASE_URL + `user/checkrepeat/`,
-          {value: name, type: genre}
-        )
+          {value, type})
         return res.data
     }
 
     //post registration information
-    static async register(Username, Email, Password){
+    static async register(username, email, password){
         let res = await axios.post(BASE_URL +`user/register/`, {
-            username: Username,
-            email: Email,
-            password: Password,
-        })
+            username, email, password})
         return res.data
     }
 
     //check whether the verification code is correct
-    static async validate(Code, User_id, request_type, Email){
+    static async validate(code, user_id, type, email){
         let res = await axios.post(BASE_URL +`user/validate/`, {
-          code: Code,
-          user_id: User_id,
-          type: request_type,
-          email: Email
-        })
+          code, user_id, type, email})
         return res.data
     }
 
     //send forgetpassword email
-    static async forgetpassword(Email){
+    static async forgetpassword(email){
         let res = await axios.post(BASE_URL +`user/send_change/`, {
-          email: Email,
-        })
+          email})
         return res.data
     }
 
     //check oldpassword right or not
-    static async checkpassword(Password){
+    static async checkpassword(password){
         let res = await axios.post(BASE_URL +`user/checkpassword/`, {
-          password: Password,
-        })
+          password})
         return res.data
     }
 
-    static async resetpassword(Password, Id){
+    static async resetpassword(password, id){
         let res = await axios.post(BASE_URL +`user/resetpassword/`, {
-          password: Password,
-          id: Id
-        })
+          password, id})
         return res.data
     }
 
