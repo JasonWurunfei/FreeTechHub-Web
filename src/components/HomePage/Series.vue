@@ -4,12 +4,16 @@
       <h1 class="title1">SEARCH</h1>
       <div class="search-box">
         <input class="search-text" type="text" placeholder="Search what you want">
-        <a class="search-btn" href=""><i class="fas fa-search"></i></a>
+        <a class="search-btn" href=""><i class="fa fa-search" aria-hidden="true"></i></a>
       </div>
       <h1 class="title2">WHAT'S IN YOUR MIND</h1>
       <div class="buttons">
-        <router-link tag="button" :to="{name: 'ShowBlogs'}">START A BLOG</router-link>
-        <router-link tag="button" :to="{name: 'ShowSeries'}">START A SERIES</router-link>
+         <router-link tag="div" :to="{name: 'ShowBlogs'}">
+          <el-button type="warning" round class="button">START A BLOG</el-button>
+        </router-link>
+        <router-link :to="{name: 'ShowSeries'}">
+          <el-button type="warning" round class="button">START A SERIES</el-button>
+        </router-link>
       </div>
     </div>
     <div class="series">
@@ -118,11 +122,12 @@
     flex-direction: column;
     align-items: flex-start;
   }
-  button {
+  .button {
     background: #D6C4BE;
     border-radius: 12px;
     font-size: 1em;
     font-weight: bold;
+    color: #585858;;
     margin: 20px 0;
     padding: 20px 20px;
     border: none;

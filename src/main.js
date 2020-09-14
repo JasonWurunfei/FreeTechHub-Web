@@ -10,6 +10,10 @@ import filters from './filters/index'
 import echarts from 'echarts'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/js/all.js'
+
+
 Vue.use(ElementUI)
 Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false

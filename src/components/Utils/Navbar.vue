@@ -1,27 +1,24 @@
 <template>
   <nav class="nav">
-    <router-link class="logo" to="/">FreeTechHub</router-link>
-    <ul v-bind:class="{shownavbar:show}" class="menu">
-      <li>
-        <router-link class="menu-logo" to="/">FreeTechHub</router-link>
-      </li>
-      <li class="active">
-        <a href="#about">About</a>
-      </li>
-      <li>
-        <a href="#series">Blog Series</a>
-      </li>
-      <li>
-        <a href="#discussion">Questions</a>
-      </li>
-      <li v-if="is_login">
-        <router-link :to="{name:'ProfileInformation', params:{id: user_id}}">Profile</router-link>
-      </li>
-      <li v-else>
-        <router-link :to="{name:'Login'}">Login</router-link>
-      </li>
-    </ul>
-    <div class="menu-btn" @click="shownavbar"><img class="iconfont" src="@/assets/img/菜单.svg" alt=""></div>
+    <div class="loge"><router-link class="logo" to="/">FreeTechHub</router-link></div>
+    <div>
+      <el-menu
+              :default-active="activeIndex2"
+              class="el-menu-demo menu el-menu--horizontal"
+              mode="horizontal"
+              background-color="#c99774"
+              text-color="#f3f3f3"
+              active-text-color="#ffd04b"
+              v-bind:class="{shownavbar:show}">
+        <el-menu-item index="1" class="el-menu-item"><a href="#about">About</a></el-menu-item>
+        <el-menu-item index="2"><a href="#series">Blog Series</a></el-menu-item>
+        <el-menu-item index="3"><a href="#discussion">Questions</a></el-menu-item>
+        <el-menu-item index="4" v-if="is_login">
+          <router-link :to="{name:'ProfileInformation', params:{id: user_id}}">Profile</router-link>
+        </el-menu-item>
+      </el-menu>
+      <div class="menu-btn" @click="shownavbar"><img class="iconfont" src="@/assets/img/菜单.svg" alt=""></div>
+    </div>
   </nav>
 </template>
 
@@ -66,23 +63,16 @@ export default {
   scroll-behavior: smooth;
   box-sizing: border-box;
 }
-
 nav {
   background: #c99774;
-  display: block;
+  display: flex;
   justify-content: space-between;
   padding: 0 3em 1em 3em;
   position: relative;
   z-index: 10;
 }
-
-nav ul {
-  list-style-type: none;
-}
-nav ul li {
-  display: inline-block;
-  box-sizing: border-box;
-  border-bottom: 0.25rem solid transparent;
+.el-menu-demo {
+    border-bottom:none!important;
 }
 nav a {
   text-decoration: none;
@@ -90,14 +80,11 @@ nav a {
   color: aliceblue;
   padding: 10px;
 }
-nav ul li a:hover {
-  background: cadetblue;
+.loge{
+  margin-top: 15px;
 }
-nav ul li a.active:hover,
-a.active:visited {
-  font-size: 27px;
-  transition: 0.75s ease;
-  border-bottom: 0.25rem solid blue;
+.el-menu--horizontal{
+  border-bottom: none;
 }
 .nav .menu{
   float: right;
@@ -134,7 +121,6 @@ a.active:visited {
 		align-items: center;
 		justify-content: center;
     min-width: 100px;
-
     cursor: pointer;
 	}
 	.menu-btn .iconfont{
