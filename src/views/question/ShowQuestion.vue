@@ -179,10 +179,13 @@ export default {
   box-sizing: border-box;
   text-decoration: none;
 }
-
+li{
+  list-style: none;
+  margin: 2vh 0;
+}
 .ShowQuestion {
   margin-top: 10vh;
-  width: 100%;
+  width: 100vw;
   height: 100%;
 }
 .title{
@@ -253,7 +256,6 @@ export default {
                        "left answer"
                        "left editor";
   grid-template-columns: 25% 75%;
-  grid-column-gap: 20px;
 }
 .answer{
   grid-area: answer;

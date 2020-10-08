@@ -35,11 +35,18 @@
         <div v-else>
           <div class="card">
             <div class="card-header">
-              <img :src="answer.owner_instance.avatar" />
-              <h4 class="card-title">{{ answer.owner_instance.username }}</h4>
-              <span class="card-title">{{ answer.time }}</span>
+              <div class="left">
+                <img :src="answer.owner_instance.avatar" />
+                <h4 class="card-title">{{ answer.owner_instance.username }}</h4>
+                <span class="card-title">{{ answer.time }}</span>
+              </div>
+              <div class="right" v-if="answer.status == true">
+                <h4 class="badge badge-success ">Accepted</h4>
+              </div>
+              <div class="right" v-else>
+                <h4 class="badge badge-danger status">Unaccepted</h4>
+              </div>
             </div>
-            <h2 class="card-title">{{ answer.time }}</h2>
             <div v-if="is_editing == false">
               <div v-if="user.pk == answer.owner">
                 <el-button @click="editing()">Edit</el-button>
@@ -55,7 +62,6 @@
               <el-button @click="saveAnswer(answer)">Save</el-button>
               <el-button @click="cancel(answer)">Cancel</el-button>
             </div>
-            <h4 class="status">Unaccepted</h4>
             <div v-if="user.pk == question.owner">
               <el-button @click="acceptAnswer(answer)">Accept</el-button>
             </div>

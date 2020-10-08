@@ -1,7 +1,11 @@
 <template>
   <div class="ShowOneSeries">
     <Navbar/>
-    <img class="landing" src="@/assets/img/landing.jpg" alt="">
+      <img class="landing" src="@/assets/img/landing.jpg" alt="">
+      <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
+        <h1 class="display-4 font-italic">{{series.name}}</h1>
+        <p class="lead my-3">{{series.description}}</p>
+      </div>
     <h1>{{series.name}}</h1>
     <p>{{series.description}}</p>
     <h2>Sub series:</h2>
@@ -146,7 +150,14 @@ export default {
 .cardlist li{
   margin: 2vh 2vw;
 }
-
+.jumbotron{
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  width: 60%;
+  height: 60%;
+  opacity: 0.7;
+}
 .card {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;

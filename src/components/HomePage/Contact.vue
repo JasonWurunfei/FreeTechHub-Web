@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="Container">
     <div>
       <h1>We <span class="love"></span> new friends!</h1>
       <p>We are really looking forward to seeing more creative people in our project and make this project useful
@@ -20,18 +20,18 @@
 </script>
 
 <style scoped>
-  .container {
+  .Container {
     display: flex;
     flex-direction: column;
     background: #FFF4E8;
     padding: 0 200px 50px 200px;
   }
 
-  .container > div:nth-child(1) {
+  .Container > div:nth-child(1) {
     text-align: center;
   }
 
-  .container > div:nth-child(2) {
+  .Container > div:nth-child(2) {
     display: flex;
     justify-content: space-around;
   }
@@ -63,7 +63,7 @@
     border: none;
   }
   @media screen and (max-width: 750px){
-    .container {
+    .Container {
       width: 100%;
       padding: 0;
     }

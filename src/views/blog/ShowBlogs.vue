@@ -30,7 +30,9 @@
       :_curPage="currentPage"
       :total="totalPages">
     </pagination>
-    <el-button class="create" @click="newBlog">create new blog</el-button>
+    <div class="create">
+      <el-button  @click="newBlog">create new blog</el-button>
+    </div>
     <Footer/>
   </div>
 </template>
@@ -55,7 +57,7 @@ export default {
     return {
       blogs: '',
       totalPages:'',
-      pageSize: 13,
+      pageSize: PAGE_SIZE,
       currentPage: 1,
       blogshow: '',
       user: '',
