@@ -2,8 +2,10 @@
   <div class="ShowOneSeries">
     <Navbar/>
     <img class="landing" src="@/assets/img/landing.jpg" alt="">
-    <h1>{{series.name}}</h1>
-    <p>{{series.description}}</p>
+    <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
+      <h1 class="display-4 font-italic">{{series.name}}</h1>
+      <p class="lead my-3">{{series.description}}</p>
+    </div>
     <h2>Sub series:</h2>
     <ul class="cardlist">
       <li v-for="series in sub_series" :key="series.pk">
@@ -132,7 +134,11 @@ export default {
   padding: 0 10vw;
 }
 .landing{
-  width: 100vw;
+  width: 60vw;
+  height: 60vh;
+  margin: 0 5vw;
+  border-radius: 15px;
+  margin-bottom: 3vh;
 }
 .cardlist {
   list-style: none;
@@ -146,7 +152,13 @@ export default {
 .cardlist li{
   margin: 2vh 2vw;
 }
-
+.jumbotron{
+  position: absolute;
+  top: 20%;
+  left: 25%;
+  width: auto;
+  opacity: 0.7;
+}
 .card {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
