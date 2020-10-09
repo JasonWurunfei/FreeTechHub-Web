@@ -16,8 +16,10 @@
       <div class="card">
         <div v-if="is_root == false">
           <div class="card-header">
-            <img :src="comment_tree.comment.owner_instance.avatar" />
-            <h2>{{ comment_tree.comment.owner_instance.username }}</h2>            
+            <img class="avatar" :src="comment_tree.comment.owner_instance.avatar" />
+            <router-link :to="{name: 'ProfileInformation', params: {id: comment_tree.comment.owner_instance.pk}}" class="comment-username">
+              {{ comment_tree.comment.owner_instance.username }}
+            </router-link>         
             <h4>{{ comment_tree.comment.time }}</h4>
           </div> 
           <div v-if="comment_tree.comment.owner_instance.pk == _user.pk">
@@ -35,7 +37,7 @@
           <div v-if="is_root == false">
             <div v-if="comment_tree.sub_comment_ids.length != 0">
               <el-button v-if="fold == true" @click="toggleChildren">Check out reply</el-button>
-              <el-button v-if="fold == false" @click="toggleChildren">Show reply</el-button>
+              <el-button v-if="fold == false" @click="toggleChildren">Fold Reply</el-button>
             </div>
           </div>
         </div>
@@ -164,7 +166,16 @@ li{
 .card-header h2{
   margin: 0 2vw;
 }
-img{
+
+.avatar {
   border-radius: 50%;
+  width: 6%;
+  margin: 10px;
+  border-radius: 50%;
+}
+
+.comment-username {
+  font-size: 200%;
+  margin: 0 2vw;
 }
 </style>
