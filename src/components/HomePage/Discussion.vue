@@ -1,5 +1,5 @@
 <template>
-  <div class="container" id="discussion">
+  <div class="Container" id="discussion">
     <div class="content">
       <h1>PUT OUR HEADS TOGETHER</h1>
       <p>We are easily fulling into our own logic trap and often not worthwhile spending our entire wonderful sunday
@@ -15,18 +15,18 @@
 </script>
 
 <style scoped>
-  .container {
+  .Container {
     display: flex;
     background: #D6C1B4;
     padding: 50px 0 50px 50px;
   }
 
-  .container > div:nth-child(1) {
+  .Container > div:nth-child(1) {
     flex: 2;
     text-align: center;
   }
 
-  .container > div:nth-child(2) {
+  .Container > div:nth-child(2) {
     padding-left: 100px;
     flex: 1;
   }
@@ -54,14 +54,14 @@
     height: 100%;
   }
   @media screen and (max-width: 1120px){
-    .container{
+    .Container{
       width: 100%;
       display: grid;
       grid-template-areas: 'img'
                            'content';
       padding: 0;
     }
-    .container > div:nth-child(2) {
+    .Container > div:nth-child(2) {
       padding: 0;
       flex: 0;
     }

@@ -14,8 +14,12 @@
         </div>
       </div>
       <div class="card">
-        <div v-if="is_root == false"> 
-          <h2 class="card-header">By {{ comment_tree.comment.owner_instance.username }} at {{ comment_tree.comment.time }}</h2>
+        <div v-if="is_root == false">
+          <div class="card-header">
+            <img :src="comment_tree.comment.owner_instance.avatar" />
+            <h2>{{ comment_tree.comment.owner_instance.username }}</h2>            
+            <h4>{{ comment_tree.comment.time }}</h4>
+          </div> 
           <div v-if="comment_tree.comment.owner_instance.pk == _user.pk">
             <el-button @click="deleteComment(comment_tree.comment)">Delete</el-button>
           </div>
@@ -31,7 +35,7 @@
           <div v-if="is_root == false">
             <div v-if="comment_tree.sub_comment_ids.length != 0">
               <el-button v-if="fold == true" @click="toggleChildren">Check out reply</el-button>
-              <el-button v-if="fold == false" @click="toggleChildren">Stow reply</el-button>
+              <el-button v-if="fold == false" @click="toggleChildren">Show reply</el-button>
             </div>
           </div>
         </div>
@@ -150,5 +154,17 @@ export default {
 }
 li{
   list-style: none;
+}
+.card-header{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+}
+.card-header h2{
+  margin: 0 2vw;
+}
+img{
+  border-radius: 50%;
 }
 </style>

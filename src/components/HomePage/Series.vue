@@ -1,5 +1,5 @@
 <template>
-  <div class="container" id="series">
+  <div class="Container" id="series">
     <div class="search">
       <h1 class="title1">SEARCH</h1>
       <div class="search-box">
@@ -39,13 +39,13 @@
 </script>
 
 <style scoped>
-  .container {
+  .Container {
     display: flex;
     background: #FFF4E8;
     padding: 0 50px 100px 50px;
   }
 
-  .container h1 {
+  .Container h1 {
     color: #585858;
     font-size: 2em;
   }
@@ -179,7 +179,7 @@
   }
 
   @media screen and (max-width: 1120px) {
-    .container{
+    .Container{
       width: 100%;
       display: grid;
       grid-template-areas:  'series'
@@ -221,7 +221,7 @@
     }
   }
   @media screen and (max-width: 380px){
-    .container{
+    .Container{
       width: 100%;
       display: grid;
       grid-template-areas:  'series'
