@@ -139,7 +139,7 @@ class Blog extends Model {
         else {
             let config = {
                 headers:{'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'}
-            };
+            }
             let param = new FormData();
             param.append('id', this._getData().id);
             param.append('title', this._getData().title);

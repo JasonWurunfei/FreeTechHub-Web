@@ -2,26 +2,35 @@
   <nav class="nav">
     <router-link class="logo" to="/">FreeTechHub</router-link>
     <ul v-bind:class="{shownavbar:show}" class="menu">
+
       <li>
         <router-link class="menu-logo" to="/">FreeTechHub</router-link>
       </li>
+
       <li class="active">
         <a href="#about">About</a>
       </li>
+
       <li>
         <a href="#series">Blog Series</a>
       </li>
+
       <li>
         <a href="#discussion">Questions</a>
       </li>
+
       <li v-if="is_login">
         <router-link :to="{name:'ProfileInformation', params:{id: user_id}}">Profile</router-link>
       </li>
       <li v-else>
         <router-link :to="{name:'Login'}">Login</router-link>
       </li>
+
     </ul>
-    <div class="menu-btn" @click="shownavbar"><img class="iconfont" src="@/assets/img/菜单.svg" alt=""></div>
+
+    <div class="menu-btn" @click="shownavbar">
+      <img class="iconfont" src="@/assets/img/菜单.svg" alt="">
+    </div>
   </nav>
 </template>
 
@@ -68,12 +77,12 @@ export default {
 }
 
 nav {
-  background: #c99774;
-  display: block;
-  justify-content: space-between;
-  padding: 0 3em 1em 3em;
+  background: linear-gradient(to left, #ba7453, #d1a884);
+  display: flex;
   position: relative;
-  z-index: 10;
+  padding: 0 5vw;
+  height: 9vh;
+  align-items: center;
 }
 
 nav ul {
@@ -91,7 +100,10 @@ nav a {
   padding: 10px;
 }
 nav ul li a:hover {
-  background: cadetblue;
+  font-size: 120%;
+  font-weight: 500;
+  border-bottom: solid 2px white;
+  transition: 0.4s ease;
 }
 nav ul li a.active:hover,
 a.active:visited {
@@ -99,20 +111,29 @@ a.active:visited {
   transition: 0.75s ease;
   border-bottom: 0.25rem solid blue;
 }
-.nav .menu{
-  float: right;
-	flex: 7;
-	height: 100%;
-	color: #f3f3f3;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	font-size: 20px;
-	padding-left: 200px;
+
+.logo {
+  font-size: 110%;
+  font-weight: 600;
+  margin-right: 40vw;
 }
+
+.menu{
+  float: right;
+  flex: 7;
+  height: 100%;
+  color: #f3f3f3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+  padding-left: 200px;
+}
+
 .menu-logo ,.menu-btn{
 	display: none;
 }
+
 @media screen and (max-width: 850px) {
 	.nav{
 		box-shadow: unset;

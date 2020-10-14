@@ -1,34 +1,60 @@
 <template>
   <div class="Container" id="series">
+
     <div class="search">
-      <h1 class="title1">SEARCH</h1>
-      <div class="search-box">
-        <input class="search-text" type="text" placeholder="Search what you want">
-        <a class="search-btn" href=""><i class="fas fa-search"></i></a>
-      </div>
-      <h1 class="title2">WHAT'S IN YOUR MIND</h1>
-      <div class="buttons">
-        <router-link tag="button" :to="{name: 'ShowBlogs'}">START A BLOG</router-link>
-        <router-link tag="button" :to="{name: 'ShowSeries'}">START A SERIES</router-link>
+      <div class="left">
+        <h1 class="title1">SEARCH</h1>
+
+        <div class="search-box">
+          <input class="search-text" type="text" placeholder="Search what you want">
+          <img class="search-logo" src="@/assets/img/search-solid.svg">
+        </div>
+
+        <h1 class="title2">WHAT'S IN YOUR MIND</h1>
+        <div class="buttons">
+
+          <router-link tag="div" :to="{name: 'ShowBlogs'}">
+            <button type="warning" round class="series-button">START A BLOG</button>
+          </router-link>
+
+          <router-link :to="{name: 'ShowSeries'}">
+            <button type="warning" round class="series-button">START A SERIES</button>
+          </router-link>
+
+        </div>
       </div>
     </div>
+
     <div class="series">
-      <div><h1>TOP TRENDING SERIES</h1></div>
+      <h1>TOP TRENDING SERIES</h1>
       <div class="picture">
-        <div>
-          <div class="shadow"><p>View</p></div>
-          <img src="@/assets/img/undraw_ideation_2a64.svg"></div>
-        <div>
-          <div class="shadow"><p>View</p></div>
-          <img src="@/assets/img/undraw_good_team_m7uu.svg"></div>
-        <div>
-          <div class="shadow"><p>View</p></div>
-          <img src="@/assets/img/undraw_experience_design_eq3j.svg"></div>
-        <div>
-          <div class="shadow"><p>View</p></div>
-          <img src="@/assets/img/undraw_master_plan_95wa.svg"></div>
+
+        <div class="blog">
+          <div class="shadow"></div>
+          <p class="view">View</p>
+          <img src="@/assets/img/undraw_ideation_2a64.svg">
+        </div>
+
+        <div class="blog">
+          <div class="shadow"></div>
+          <p class="view">View</p>
+          <img src="@/assets/img/undraw_good_team_m7uu.svg">
+        </div>
+
+        <div class="blog">
+          <div class="shadow"></div>
+          <p class="view">View</p>
+          <img src="@/assets/img/undraw_experience_design_eq3j.svg">
+        </div>
+
+        <div class="blog">
+          <div class="shadow"></div>
+          <p class="view">View</p>
+          <img src="@/assets/img/undraw_master_plan_95wa.svg">
+        </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -39,219 +65,244 @@
 </script>
 
 <style scoped>
-  .Container {
-    display: flex;
-    background: #FFF4E8;
-    padding: 0 50px 100px 50px;
-  }
+.Container {
+  display: flex;
+  background: #FFF4E8;
+  height: 100vh;
+}
 
-  .Container h1 {
-    color: #585858;
-    font-size: 2em;
-  }
+.Container h1 {
+  color: #585858;
+  font-size: 2em;
+}
 
-  .search {
-    flex: 1;
-    padding: 100px 50px 0 0;
-  }
+.search {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-left: 5vw;
+}
 
-  .series {
-    flex: 2;
-  }
+.left h1 {
+  font-size: 500%;
+  width: 80%;
+  margin: 5vh 0;
+  font-weight: 700;
+  font-family: fantasy;
+}
 
-  .series > div:nth-child(1) {
-    text-align: center;
-  }
+.series {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-right: 5vw;
+}
 
-  .picture {
+.series h1 {
+  font-family: fantasy;
+  font-size: 300%;
+  font-weight: 700;
+  margin-bottom: 2vh;
+}
+
+.picture {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 20px;
+  justify-items: center;
+  align-items: center;
+}
+
+.picture > div {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: white;
+  transition: 0.4s ease;
+  text-align: center;
+}
+
+.picture img {
+  width: 100%;
+  height: 100%;
+}
+
+.shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  filter: opacity(0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.blog:hover .shadow {
+  filter: opacity(40%);
+}
+
+.blog:hover .view {
+  opacity: 1;
+}
+.view {
+  position: absolute;
+  opacity: 0;
+  color: white;
+  font-size: 300%;
+  font-weight: 500;
+}
+
+.blog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blog:hover {
+  width: 20vw;
+  height: 25vh;
+}
+
+.buttons {
+  margin-top: 7vh;
+  width: 40vw;
+  display: flex;
+  justify-content: space-around;
+}
+
+button {
+  background: #D6C4BE;
+  border-radius: 10px;
+  padding: 1vh 2vw;
+  font-size: 130%;
+  color: #736359;
+  border: none;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: 800;
+  width: 13vw;
+}
+
+button:hover {
+  background: #ee9611;
+  border-radius: 10px;
+  padding: 1vh 2vw;
+  font-size: 130%;
+  color: #736359;
+  border: none;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: 800;
+  width: 13vw;
+}
+.search-logo{
+  height: 10vh;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  transition: 0.4s ease;
+  width: 34vw;
+  height: 5vh;
+  position: relative;
+}
+
+.search-text {
+  width: 0vw;
+  background:none;  
+  outline:none;  
+  border:none;
+  transition: 0.4s ease;
+}
+
+.search-box:hover .search-text {
+  width: 34vw;
+  border-bottom: solid 1vh #C56B47;
+  transition: 0.4s ease;
+}
+
+
+@media screen and (max-width: 1120px) {
+  .Container{
+    width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-gap: 20px;
+    grid-template-areas:  'series'
+                          'search';
+    grid-template-columns: 100%;
+    padding: 0;
+  }
+  .series{
+    width: 100%;
+    grid-area: series;
+  }
+  .search{
+    width: 100%;
+    grid-area: search;
+    display: grid;
+    grid-template-areas:  'title1 title2'
+                          'search-box search-box'
+                          'buttons buttons';
+    grid-auto-columns: 50% 50%;
     justify-items: center;
     align-items: center;
   }
-
-  .picture > div {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    background: white;
-    transition: 0.4s;
-    text-align: center;
+  .title1{
+    grid-area: title1;
   }
-
-  .picture img {
-    width: 100%;
-    height: 100%;
+  .title2{
+    grid-area: title2;
+    word-wrap: break-word;
   }
-
-  .shadow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: black;
+  .search-box{
+    grid-area: search-box;
+  }
+  .buttons{
     width: 100%;
-    height: 100%;
-    filter: opacity(0);
+    grid-area: buttons;
     display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+}
+@media screen and (max-width: 380px){
+  .Container{
+    width: 100%;
+    display: grid;
+    grid-template-areas:  'series'
+                          'search';
+    grid-template-columns: 100%;
+    padding: 0;
+  }
+  .search{
+    width: 100%;
+    grid-area: search;
+    display: grid;
+    grid-template-areas:  'title1'
+                          'title2'
+                          'search-box'
+                          'buttons';
+    grid-auto-columns: 50% 50%;
     justify-content: center;
     align-items: center;
   }
-
-  .shadow p {
-    color: white;
-    font-size: 20px;
-  }
-
-  .picture > div:hover {
-    width: 80%;
-    height: 80%;
-  }
-
-  .shadow:hover {
-    filter: opacity(40%);
-  }
-
-  .buttons{
+  .picture{
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
   }
-  button {
-    background: #D6C4BE;
-    border-radius: 12px;
-    font-size: 1em;
-    font-weight: bold;
-    margin: 20px 0;
-    padding: 20px 20px;
-    border: none;
-    outline: none;
-    min-width: 200px;
-  }
-
-  .search-box {
-    background: #2f3640;
-    height: 40px;
-    width: 40px;
-    border-radius: 40px;
-    padding: 10px;
+  .buttons{
+    width: 100%;
+    grid-area: buttons;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
   }
-
-  .search-btn {
-    color: #C56B47;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #2f3640;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .search-text {
-    padding: 0;
-    background: none;
-    outline: none;
-    border: none;
-    color: white;
-    transition: 0.4s;
-    font-size: 16px;
-    width: 0;
-    border-bottom: #C56B47 2px solid;
-    line-height: 40px;
-  }
-
-  .search-box:hover {
-    width: 240px;
-  }
-
-  .search-box:hover > .search-text {
-    width: 170px;
-    padding: 0 6px;
-  }
-
-  .search-box:hover > .search-btn {
-    background: white;
-  }
-
-  @media screen and (max-width: 1120px) {
-    .Container{
-      width: 100%;
-      display: grid;
-      grid-template-areas:  'series'
-                            'search';
-      grid-template-columns: 100%;
-      padding: 0;
-    }
-    .series{
-      width: 100%;
-      grid-area: series;
-    }
-    .search{
-      width: 100%;
-      grid-area: search;
-      display: grid;
-      grid-template-areas:  'title1 title2'
-                            'search-box search-box'
-                            'buttons buttons';
-      grid-auto-columns: 50% 50%;
-      justify-items: center;
-      align-items: center;
-    }
-    .title1{
-      grid-area: title1;
-    }
-    .title2{
-      grid-area: title2;
-      word-wrap: break-word;
-    }
-    .search-box{
-      grid-area: search-box;
-    }
-    .buttons{
-      width: 100%;
-      grid-area: buttons;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-    }
-  }
-  @media screen and (max-width: 380px){
-    .Container{
-      width: 100%;
-      display: grid;
-      grid-template-areas:  'series'
-                            'search';
-      grid-template-columns: 100%;
-      padding: 0;
-    }
-   .search{
-      width: 100%;
-      grid-area: search;
-      display: grid;
-      grid-template-areas:  'title1'
-                            'title2'
-                            'search-box'
-                            'buttons';
-      grid-auto-columns: 50% 50%;
-      justify-content: center;
-      align-items: center;
-    }
-    .picture{
-      display: flex;
-      flex-direction: column;
-    }
-    .buttons{
-      width: 100%;
-      grid-area: buttons;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-  }
+}
 </style>

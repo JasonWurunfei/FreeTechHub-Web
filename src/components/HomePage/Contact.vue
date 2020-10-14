@@ -1,16 +1,14 @@
 <template>
   <div class="Container">
-    <div>
+    <div class="content">
       <h1>We <span class="love"></span> new friends!</h1>
-      <p>We are really looking forward to seeing more creative people in our project and make this project useful
-        for as many people as possible. If you already have some programming experience inPython and know how to
-        use Git and Github to participate in open source projects you can simply visit our Github repository and
-        make your creative changes! If you don't have any programming experience, don't worry, we have complete
-        programming and git tutorials to help you easily get there.</p>
-    </div>
-    <div class="buttons">
-      <button>Tutorial</button>
-      <button>FTH Project</button>
+      <p>
+        We are really looking forward to seeing more creative people in our project and make this project useful for as many people as possible. If you already have some programming experience inPython and know how to use Git and Github to participate in open source projects you can simply visit our Github repository and make your creative changes! If you don't have any programming experience, don't worry, we have complete programming and git tutorials to help you easily get there.
+      </p>
+      <div class="buttons">
+        <button>Tutorial</button>
+        <button>FTH Project</button>
+      </div>
     </div>
   </div>
 </template>
@@ -20,55 +18,83 @@
 </script>
 
 <style scoped>
+.Container {
+  display: flex;
+  flex-direction: column;
+  background: #FFF4E8;
+  height: 70vh;
+  padding: 10vh 15vw;
+  align-items: center;
+}
+
+
+.love {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  vertical-align: middle;
+  background: url("~@/assets/img/love.svg");
+  background-size: 50px 50px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align:center;
+}
+
+h1 {
+  font-size: 600%;
+  font-family: 'Times New Roman', Times, serif;
+  color: #736359;
+  margin-bottom: 3vh;
+}
+
+p {
+  color: #736359;
+  font-size: 1.5em;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.buttons {
+  margin-top: 7vh;
+  width: 40vw;
+  display: flex;
+  justify-content: space-around;
+}
+
+button {
+  background: #D6C4BE;
+  border-radius: 10px;
+  padding: 1vh 2vw;
+  font-size: 200%;
+  color: white;
+  border: none;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: 800;
+  width: 13vw;
+}
+
+button:hover {
+  background: #ee9611;
+  border-radius: 10px;
+  padding: 1vh 2vw;
+  font-size: 200%;
+  color: white;
+  border: none;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: 800;
+  width: 13vw;
+}
+
+@media screen and (max-width: 750px){
   .Container {
-    display: flex;
-    flex-direction: column;
-    background: #FFF4E8;
-    padding: 0 200px 50px 200px;
+    width: 100%;
+    padding: 0;
   }
-
-  .Container > div:nth-child(1) {
-    text-align: center;
+  .buttons{
+    margin-bottom: 20px;
   }
-
-  .Container > div:nth-child(2) {
-    display: flex;
-    justify-content: space-around;
-  }
-
-  .love {
-    width: 50px;
-    height: 50px;
-    display: inline-block;
-    vertical-align: middle;
-    background: url("~@/assets/img/love.svg");
-    background-size: 50px 50px;
-  }
-
-  h1 {
-    font-size: 2.5em;
-    color: #736359;
-  }
-
-  p {
-    color: #736359;
-    font-size: 1.5em;
-  }
-
-  button {
-    background: #D6C4BE;
-    border-radius: 12px;
-    font-size: 1em;
-    padding: 20px 20px;
-    border: none;
-  }
-  @media screen and (max-width: 750px){
-    .Container {
-      width: 100%;
-      padding: 0;
-    }
-    .buttons{
-      margin-bottom: 20px;
-    }
-  }
+}
 </style>

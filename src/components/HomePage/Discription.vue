@@ -7,8 +7,10 @@
       <starbar></starbar>
     </div>
     <div class="section">
-      <p>FreeTechHub is the place where we are share our newly learned knowledge to our best friends,and to admire the
-        beauty of the great human wisdom together</p>
+      <p>
+        FreeTechHub is the place where we are share our newly learned knowledge to our best friends,and to admire the
+        beauty of the great human wisdom together
+      </p>
     </div>
   </div>
 </template>
@@ -25,30 +27,41 @@
 </script>
 
 <style scoped>
-  .discription {
-    background: #C99774;
-    padding-bottom: 150px;
-  }
+.discription {
+  background: linear-gradient(to left, #ba7453, #d1a884);
+  padding-bottom: 25vh;
+}
 
-  .discription > div:nth-child(2) {
-    display: flex;
-    justify-content: center;
-  }
+.discription > div:nth-child(2) {
+  display: flex;
+  justify-content: center;
+}
 
-  .knowledge {
-    padding: 2em 4em 1em 4em;
-    text-align: center;
-  }
+.knowledge {
+  padding: 2em 4em 1em 4em;
+  text-align: center;
+}
 
-  .section {
-    margin: 0 auto;
-    width: 40%;
-    text-align: center;
-  }
+.knowledge h1 {
+  font-size: 500%;
+  font-weight: 700;
+}
 
-  h1, p {
-    color: aliceblue;
-  }
+.section {
+  margin: 0 auto;
+  margin-top: 2vh;
+  width: 50%;
+  text-align: center;
+}
+
+.section p {
+  font-size: 200%;
+  font-weight: 700;
+}
+
+h1, p {
+  color: aliceblue;
+}
 @media screen and (max-width: 516px) {
   .knowledge{
     padding-top: 6vh;

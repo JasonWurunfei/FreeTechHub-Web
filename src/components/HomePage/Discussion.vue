@@ -1,77 +1,120 @@
 <template>
   <div class="Container" id="discussion">
+
     <div class="content">
-      <h1>PUT OUR HEADS TOGETHER</h1>
-      <p>We are easily fulling into our own logic trap and often not worthwhile spending our entire wonderful sunday
-        afternoon tp spot it.Having a fresh point of view can make a big difference.</p>
-      <router-link tag="button" :to="{name:'ShowQuestions'}">Join the discussion</router-link>
+      <div>
+        <h1>PUT OUR HEADS TOGETHER</h1>
+        <p>
+          We are easily fulling into our own logic trap and often not worthwhile spending our entire wonderful sunday
+          afternoon tp spot it.Having a fresh point of view can make a big difference.
+        </p>
+      </div>
+      <button type="warning" round class="button" @click="goQuestions">Join the discussion</button>
     </div>
-    <div><img src="@/assets/img/undraw_true_love_cy8x.svg"></div>
+
+    <div class="side">
+      <img id="side-pic" src="@/assets/img/DiscussionRight.svg">
+    </div>
+
   </div>
 </template>
 
 <script>
-  export default {}
+  export default {
+    methods: {
+      goQuestions() {
+        this.$router.push({name: "ShowQuestions"})
+      }
+    }
+  }
 </script>
 
 <style scoped>
-  .Container {
-    display: flex;
-    background: #D6C1B4;
-    padding: 50px 0 50px 50px;
-  }
+.Container {
+  display: flex;
+  flex-direction: row;
+  background: #D6C1B4;
+  padding: 5vh 0 5vw 5vw;
+  height: 100vh;
+}
 
-  .Container > div:nth-child(1) {
-    flex: 2;
-    text-align: center;
-  }
+.side {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
 
-  .Container > div:nth-child(2) {
-    padding-left: 100px;
-    flex: 1;
-  }
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 7vw;
+  position: relative;
+}
 
-  button {
-    background: #FFF4E8;
-    border-radius: 12px;
-    font-size: 2em;
-    padding: 20px 20px;
-    border: none;
-  }
+#side-pic {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
 
-  h1 {
-    font-size: 2.5em;
-    color: #FFF4E8;
-  }
+h1 {
+  font-size: 500%;
+  font-weight: 700;
+  color: white;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  width: 70%;
+}
 
-  p {
-    color: #FFF4E8;
-    font-size: 1.5em;
-  }
+p {
+  width: 85%;
+  color: white;
+  font-size: 350%;
+  font-family:'Times New Roman', Times, serif
+}
 
-  img {
+.button {
+  background: #FFF4E8;
+  border-radius: 35px;
+  padding: 1vh 2vw;
+  font-size: 2em;
+  border: none;
+  color: #585858;
+  position: absolute;
+  top: 110%;
+  left: 25%;
+}
+
+.button:hover {
+  background: #ee9611;
+  border-radius: 35px;
+  padding: 1vh 2vw;
+  font-size: 2em;
+  border: none;
+  color: white;
+  position: absolute;
+  top: 110%;
+  left: 25%;
+}
+
+@media screen and (max-width: 1120px){
+  .Container{
     width: 100%;
-    height: 100%;
+    display: grid;
+    grid-template-areas: 'img'
+                          'content';
+    padding: 0;
   }
-  @media screen and (max-width: 1120px){
-    .Container{
-      width: 100%;
-      display: grid;
-      grid-template-areas: 'img'
-                           'content';
-      padding: 0;
-    }
-    .Container > div:nth-child(2) {
-      padding: 0;
-      flex: 0;
-    }
-    .content{
-      grid-area: content;
-      margin-bottom: 20px;
-    }
-    button{
-      padding: 20px;
-      margin: 20px;
-    }
+  .Container > div:nth-child(2) {
+    padding: 0;
+    flex: 0;
   }
+  .content{
+    grid-area: content;
+    margin-bottom: 20px;
+  }
+}
 </style>

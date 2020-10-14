@@ -1,14 +1,28 @@
 <template>
   <div class="about" id="about">
-    <div class="center"><h1>----ABOUT US----</h1></div>
+    <div class="center">
+      <img id="title" src="@/assets/img/about.svg">
+    </div>
+
     <div class="about-under">
-      <div class="img1"><img src="@/assets/img/undraw_annotation_7das.svg"></div>
-      <div class="text1"><p><strong>WE ARE</strong> software engineering students and trying our best to make the best of our
-        free time. We love to share knowledge with everyone and hopefully contribute our work to a better
-        society</p></div>
-      <div class="text2"><p><strong>WE WANT</strong> to share our knowledge and experiences with anyone who is enthusiastic
-        about technology, to learn from the experienced, to make friends with people that are willing to share.
-      </p></div>
+      <div class="img1">
+        <img src="@/assets/img/undraw_annotation_7das.svg">
+      </div>
+
+      <div class="text1">
+        <div class="content">
+          <strong>WE ARE</strong> 
+          software engineering students and trying our best to make the best of our free time. We love to share knowledge with everyone and hopefully contribute our work to a better society
+        </div>
+      </div>
+
+      <div class="text2">
+        <div class="content">
+          <strong>WE WANT</strong>
+          to share our knowledge and experiences with anyone who is enthusiastic about technology, to learn from the experienced, to make friends with people that are willing to share.
+        </div>
+      </div>
+
       <div class="img2"><img src="@/assets/img/undraw_hang_out_h9ud.svg"></div>
     </div>
   </div>
@@ -21,52 +35,75 @@
 </script>
 
 <style scoped>
-  .about {
-    width: 100%;
-    background: #D6C1B4;
-    padding: 0 100px 100px 20px;
-    box-sizing: border-box;
-  }
+.about {
+  width: 100%;
+  height: 100vh;
+  background: #D6C1B4;
+  padding: 2vh 5vw 5vw 2vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-  .center {
-    text-align: center;
-  }
+.center {
+  text-align: center;
+}
 
-  .about p {
-    color: #736359;
-    background: #EFDAC3;
-    font-size: 1.8em;
-    margin: 0;
-    padding: 10px;
-  }
+#title {
+  height: 9vh;
+  background-color: #D6C1B4;
+}
 
-  .about img {
-    width: 100%;
-    height: 100%;
-  }
+.about p {
+  color: #736359;
+  background: #EFDAC3;
+  font-size: 1.5em;
+  margin: 0;
+  padding: 10px;
+}
 
-  .about-under {
-    display: grid;
-    grid-template-columns: 500px 500px;
-    grid-template-rows: 300px 300px;
-    padding: 0 100px 0 100px;
-  }
+.text1 {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: flex-end;
+}
 
-  .about-under > div:nth-child(1) {
-    background: white;
-  }
+.text2 {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: flex-end;
+}
 
-  .about-under > div:nth-child(4) {
-    background: white;
-  }
+.content {
+  color: #736359;
+  background: #EFDAC3;
+  height: 93%;
+  width: 93%;
+  font-size: 1.5em;
+  padding: 10%;
+  font-size: 170%;
+  font-weight: 600;
+}
 
-  .about-under > div:nth-child(2) {
-    padding: 23px 33px 0 0;
-  }
+.about img {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
 
-  .about-under > div:nth-child(3) {
-    padding-left: 33px;
-  }
+.about-under {
+  margin: 0;
+  margin-top: 2vh;
+  display: grid;
+  grid-template-columns: 30vw 30vw;
+  grid-template-rows: 40vh 40vh;
+}
+
+
 @media screen and (max-width: 1120px){
   .about {
     width: 100%;
