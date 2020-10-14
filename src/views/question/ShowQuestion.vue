@@ -152,12 +152,12 @@ export default {
         question.getAnswers().then(answers => {
           this.answers = answers
           for (let answer of this.answers) {
+            console.log(answer)
             if (answer.status == true) {
               this.accepted_answer = answer
             }
             if (answer.owner == this.user.pk) {
               this.is_answerable = false
-              break
             }
           }
         })

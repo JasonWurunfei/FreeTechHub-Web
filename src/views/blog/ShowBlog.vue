@@ -62,7 +62,7 @@
         </div>
       </div>
       
-      <div class="buttons">
+      <div class="buttons" v-if="user.pk == blog.owner">
         <el-button @click="editBlog">Edit</el-button>
         <el-button @click="deleteBlog">Delete</el-button>
         <el-button v-if="this.followeruser.pk !== this.followinguser.pk" @click="followingship">{{content}}</el-button>
