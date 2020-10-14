@@ -71,7 +71,6 @@ export default {
   created() {
     this.user.getFollowershipList()
     .then(res => {
-      console.log(res)
       this.followings = res.followings
       this.followers = res.followers
       this.totalfollower = this.followers.length
