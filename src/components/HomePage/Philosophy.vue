@@ -81,4 +81,29 @@
     flex-direction: column;
   }
 }
+
+@media screen and (max-width: 1600px){
+  .right {
+  display: flex;
+  flex-direction: column;
+  padding: 5vh 5vw;
+}
+
+.right img {
+  width: 9vw;
+  vertical-align: middle;
+}
+
+.philosophy img {
+  max-width: 100%;
+  height: auto;
+  padding: 5vh;
+}
+
+.right h1 {
+  font-size: 300%;
+  color: #C56B47;
+  align-self: center;
+}
+}
 </style>

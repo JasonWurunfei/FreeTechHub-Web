@@ -62,17 +62,17 @@
 }
 
 h1 {
-  font-size: 500%;
+  font-size: 450%;
   font-weight: 700;
   color: white;
   font-family:Georgia, 'Times New Roman', Times, serif;
-  width: 70%;
+  width: 80%;
 }
 
 p {
-  width: 85%;
+  width: 80%;
   color: white;
-  font-size: 350%;
+  font-size: 250%;
   font-family:'Times New Roman', Times, serif
 }
 
@@ -116,5 +116,22 @@ p {
     grid-area: content;
     margin-bottom: 20px;
   }
+}
+
+@media screen and (max-width: 1600px){
+    h1 {
+    font-size: 350%;
+    font-weight: 700;
+    color: white;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    width: 80%;
+    }
+
+    p {
+    width: 80%;
+    color: white;
+    font-size: 200%;
+    font-family:'Times New Roman', Times, serif
+    }
 }
 </style>

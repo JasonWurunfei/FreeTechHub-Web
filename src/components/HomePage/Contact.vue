@@ -58,7 +58,7 @@ p {
 }
 
 .buttons {
-  margin-top: 7vh;
+  margin-top: 3vh;
   width: 40vw;
   display: flex;
   justify-content: space-around;
@@ -73,19 +73,11 @@ button {
   border: none;
   font-family: 'Times New Roman', Times, serif;
   font-weight: 800;
-  width: 13vw;
+  width: 16vw;
 }
 
 button:hover {
   background: #ee9611;
-  border-radius: 10px;
-  padding: 1vh 2vw;
-  font-size: 200%;
-  color: white;
-  border: none;
-  font-family: 'Times New Roman', Times, serif;
-  font-weight: 800;
-  width: 13vw;
 }
 
 @media screen and (max-width: 750px){
@@ -96,5 +88,32 @@ button:hover {
   .buttons{
     margin-bottom: 20px;
   }
+}
+
+@media screen and (max-width: 1600px){
+  h1 {
+  font-size: 400%;
+  font-family: 'Times New Roman', Times, serif;
+  color: #736359;
+  margin-bottom: 3vh;
+  }
+
+  p {
+  color: #736359;
+  font-size: 120%;
+  font-family: 'Times New Roman', Times, serif;
+  }
+
+  button {
+  background: #D6C4BE;
+  border-radius: 10px;
+  padding: 1vh 2vw;
+  font-size: 130%;
+  color: white;
+  border: none;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: 800;
+  width: 16vw;
+}
 }
 </style>

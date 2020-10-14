@@ -49,19 +49,12 @@
 
 .center {
   text-align: center;
+  width: 45vw;
 }
 
 #title {
-  height: 9vh;
   background-color: #D6C1B4;
-}
-
-.about p {
-  color: #736359;
-  background: #EFDAC3;
-  font-size: 1.5em;
-  margin: 0;
-  padding: 10px;
+  height: 100%;
 }
 
 .text1 {
@@ -83,10 +76,13 @@
   background: #EFDAC3;
   height: 93%;
   width: 93%;
-  font-size: 1.5em;
   padding: 10%;
-  font-size: 170%;
+  font-size: 1.3rem;
   font-weight: 600;
+}
+
+.content strong {
+  font-size: 130%;
 }
 
 .about img {
@@ -159,6 +155,22 @@
 @media screen and (max-width: 484px){
   .about-under{
     padding: 0;
+  }
+}
+
+@media screen and (max-width: 1600px){
+  .content {
+    color: #736359;
+    background: #EFDAC3;
+    height: 93%;
+    width: 93%;
+    padding: 10%;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .content strong {
+    font-size: 130%;
   }
 }
 </style>

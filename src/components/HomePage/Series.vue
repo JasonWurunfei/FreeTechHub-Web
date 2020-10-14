@@ -3,14 +3,15 @@
 
     <div class="search">
       <div class="left">
-        <h1 class="title1">SEARCH</h1>
+        <h1 class="title1 text">SEARCH</h1>
 
-        <div class="search-box">
+        <div class="search-box text">
           <input class="search-text" type="text" placeholder="Search what you want">
           <img class="search-logo" src="@/assets/img/search-solid.svg">
         </div>
 
-        <h1 class="title2">WHAT'S IN YOUR MIND</h1>
+        <h1 class="title2 text">WHAT'S IN YOUR MIND</h1>
+
         <div class="buttons">
 
           <router-link tag="div" :to="{name: 'ShowBlogs'}">
@@ -87,10 +88,14 @@
 
 .left h1 {
   font-size: 500%;
-  width: 80%;
+  width: 90%;
   margin: 5vh 0;
   font-weight: 700;
   font-family: fantasy;
+}
+
+.text {
+    padding-left: 2vw;
 }
 
 .series {
@@ -181,25 +186,25 @@
 button {
   background: #D6C4BE;
   border-radius: 10px;
-  padding: 1vh 2vw;
-  font-size: 130%;
+  padding: 1.5vh 2vw;
+  font-size: 100%;
   color: #736359;
   border: none;
   font-family: 'Times New Roman', Times, serif;
   font-weight: 800;
-  width: 13vw;
+  width: 15vw;
 }
 
 button:hover {
   background: #ee9611;
   border-radius: 10px;
-  padding: 1vh 2vw;
-  font-size: 130%;
+  padding: 1.5vh 2vw;
+  font-size: 100%;
   color: #736359;
   border: none;
   font-family: 'Times New Roman', Times, serif;
   font-weight: 800;
-  width: 13vw;
+  width: 15vw;
 }
 .search-logo{
   height: 10vh;
@@ -304,5 +309,6 @@ button:hover {
     justify-content: center;
     align-items: center;
   }
+  
 }
 </style>
