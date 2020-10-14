@@ -4,20 +4,31 @@
       <li>
         <div v-if="is_accepted ==  true">
           <div class="card">
-            <div class="card-header">
-              <div class="left">
-                <img :src="answer.owner_instance.avatar" />
-                <h4 class="card-title">{{ answer.owner_instance.username }}</h4>
-                <span class="card-title">{{ answer.time }}</span>
-              </div>
-              <div class="right" v-if="answer.status == true">
-                <h4 class="badge badge-success ">Accepted</h4>
-              </div>
-              <div class="right" v-else>
-                <h4 class="badge badge-danger status">Unaccepted</h4>
-              </div>
+            <div class="card-img">
+              <img :src="answer.owner_instance.avatar" />
+              <h4>{{ answer.owner_instance.username }}</h4>
             </div>
-            <p class="card-text" v-html="answer.html_content" v-highlight></p>
+            <h2 class="card-title">{{ answer.time }}</h2>
+            <div class="right" v-if="answer.status == true">
+              <h4 class="badge badge-success ">Accepted</h4>
+            </div>
+            <div class="right" v-else>
+              <h4 class="badge badge-danger status">Unaccepted</h4>
+            </div>
+            <div class="agreegroup">
+              <img src="@/assets/img/agree-o.svg" @click="agree" v-if="history=='liked'" alt="like-icon" />
+              <img src="@/assets/img/agree.svg" @click="agree" v-else alt="like-icon" />
+              <p>{{ answer.agree_num }}</p>
+              <p>{{ answer.disagree_num }}</p>
+              <img
+                src="@/assets/img/disagree-o.svg"
+                @click="disagree"
+                v-if="history=='disliked'"
+                alt="dislike-icon"
+              />
+              <img src="@/assets/img/disagree.svg" @click="disagree" v-else alt="dislike-icon" />
+            </div>
+            <p class="card-content" v-if="is_editing==false" v-html="answer.html_content" v-highlight></p>
           </div>
           <el-button v-if="fold == true" @click="toggleChildren(answer)">Check out reply</el-button>
           <el-button v-if="fold == false" @click="toggleChildren(answer)">Stow reply</el-button>
@@ -51,7 +62,6 @@
               <div v-if="user.pk == answer.owner">
                 <el-button @click="editing()">Edit</el-button>
               </div>
-              <p class="card-content" v-html="answer.html_content" v-highlight></p>
             </div>
             <div v-else>
               <mavon-editor
@@ -65,6 +75,21 @@
             <div v-if="user.pk == question.owner">
               <el-button @click="acceptAnswer(answer)">Accept</el-button>
             </div>
+            <div class="agreegroup">
+              <img src="@/assets/img/agree-o.svg" @click="agree" v-if="history=='liked'" alt="like-icon" />
+              <img src="@/assets/img/agree.svg" @click="agree" v-else alt="like-icon" />
+              <p>{{ answer.agree_num }}</p>
+              <p>{{ answer.disagree_num }}</p>
+              <img
+                src="@/assets/img/disagree-o.svg"
+                @click="disagree"
+                v-if="history=='disliked'"
+                alt="dislike-icon"
+              />
+              <img src="@/assets/img/disagree.svg" @click="disagree" v-else alt="dislike-icon" />
+            </div>
+            <p class="card-content" v-if="is_editing==false" v-html="answer.html_content" v-highlight></p>
+            <button v-if="user.pk == question.owner" @click="acceptAnswer(answer)">Accept</button>
           </div>
           <el-button v-if="fold == true" @click="toggleChildren(answer)">Check out reply</el-button>
           <el-button v-if="fold == false" @click="toggleChildren(answer)">Stow reply</el-button>
@@ -93,7 +118,7 @@ import renderMath from "@/assets/utils/renderMath"
 
 export default {
 	name:"ShowAnswers",
-  props: ['_answer','question','_is_accepted','_user'],
+  props: ['_answer','question','answersHistory','_is_accepted','_user'],
   components: {
     ShowComments
   },
@@ -103,6 +128,7 @@ export default {
       wrapped_tree:'',
       comment_content:'',
       answer:this._answer,
+      history:'',
       fold: true,
       is_accepted: this._is_accepted,
       is_editing:false,
@@ -168,7 +194,6 @@ export default {
     },
 
     toggleChildren(answer){
-      console.log(answer)
       if (this.fold == true) {
         Comment.query_sub_comments(answer.root_comment)
         .then(comment_tree => {
@@ -181,15 +206,47 @@ export default {
     updatedTree(wrapped_comment_tree){
       this.wrapped_tree = wrapped_comment_tree
     },
-  },
-  watch: {
-    answer(val) {
-      this.$nextTick().then(() => {
-        this.answer = val
-        renderMath()
+
+    agree() {
+      this.answer.agree().then(() => {
+        this.answer.getAgreeHistory()
+        .then(history => {
+          // if disliked before, cancel it
+          if (this.history == 'disliked')
+            this.answer.disagree_num -= 1
+
+          this.history = history
+          if(history == 'none')
+            this.answer.agree_num -= 1
+          else
+            this.answer.agree_num += 1
+        })
       })
     },
-  }
+
+    disagree() {
+      this.answer.disagree().then(() => {
+        this.answer.getAgreeHistory()
+        .then(history => {
+          // if liked before, cancel it
+          if (this.history == 'liked')
+            this.answer.agree_num -= 1
+          this.history = history
+          if(history == 'none')
+            this.answer.disagree_num -= 1
+          else
+            this.answer.disagree_num += 1
+        })
+      })
+    }
+  },
+
+  created() {
+    this._answer.getHistory(this.answersHistory).then(history => {
+      this.history = history
+    })
+    renderMath()
+  },
 }
 </script>
 <style scoped>

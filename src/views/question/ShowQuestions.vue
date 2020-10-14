@@ -12,7 +12,7 @@
             <a href="">{{question.owner_instance.username}}</a>
           </div>
           <p class="bounty">Bounty:{{ question.bounty }}</p>
-          <p class="content" v-html="$options.filters.stringfilter(question.html_content)"></p>
+          <p class="content" v-html="$options.filters.stringfilter(question.html_content)" v-highlight></p>
           <p class="readmore">CONTINUE READING<img class="icon" src="@/assets/img/向右.svg" alt=""></p>
         </div>
       </li>
@@ -69,6 +69,7 @@ export default {
       this.getQuestions(new_page)
     },
   },
+  
   created() {
     this.getQuestions(this.currentPage)
   },

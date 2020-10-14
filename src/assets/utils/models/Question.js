@@ -73,33 +73,50 @@ class Question extends Model {
         this.pk = response.data.id
         return response
     }
-
+    
     async update(picture) {
         if(picture == undefined || picture == "") {
             let data = this._getData()
             if(!data.bounty) delete data.bounty
+            if(typeof this.background_image == "string")
+                delete data.background_image
             return await axios.put(this._getInstanceURL(), data)
         }
         else {
             let config = {
                 headers:{'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'}
             };
-        let param = new FormData();
-        param.append('id', this._getData().id);
-        param.append('title', this._getData().title);
-        param.append('content', this._getData().content);
-        // allow blank bounty
-        if(this._getData().bounty)
-            param.append('bounty', this._getData().bounty);
-        
-        param.append('owner', this._getData().owner);
-        param.append('background_image', this._getData().background_image);
-        return await axios.put(this._getInstanceURL(), param,config)
-      }
+            let param = new FormData();
+            param.append('id', this._getData().id);
+            param.append('title', this._getData().title);
+            param.append('content', this._getData().content);
+            // allow blank bounty
+            if(this._getData().bounty)
+                param.append('bounty', this._getData().bounty);
+            param.append('owner', this._getData().owner);
+
+            
+                
+            param.append('background_image', this._getData().background_image);
+            return await axios.put(this._getInstanceURL(), param,config)
+        }
+    }
+
+    //get answers sorted by score
+    async getAnswers() {
+        let results= await axios.get(BASE_URL + `question/sorted-answers/`,{
+                params: { question_id: this.pk }
+            }
+        )
+        let res = []
+        for (let answer of results.data) {
+            res.push(new Answer(answer))
+        }
+        return res
     }
 
     //get questions by page_id
-    static async getOnePage(page_id){
+    static async getOnePage(page_id){ 
         let response = await axios.get(BASE_URL + 'question/question', {
             params: {
                 page: page_id,
@@ -113,6 +130,17 @@ class Question extends Model {
         return res
     }
 
+    //get like history of all answers
+    async getLikeHistoryOfAnswers(user_id){
+        let res = await axios.get(BASE_URL + `like/like-history-answers`, {
+            params: {
+                user_id: user_id,
+                object_id: this.pk,
+            }
+        })
+        return res.data
+    }
+
     static async get(id) {
         return await Model._getOne(this.app_name, this.model_name, id, this)
     }
@@ -120,6 +148,7 @@ class Question extends Model {
     static async all() {
         return await Model._raw_all(this.app_name, this.model_name, this)
     }
+
 }
 
 export default Question

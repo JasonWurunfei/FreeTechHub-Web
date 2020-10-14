@@ -19,11 +19,7 @@
           <span class="badge badge-success">{{ tag.tag_name }}</span>
         </a>
       </div>
-      <div class="content" v-html="question.content" v-highlight></div>
-        <div class="buttons">
-          <el-button @click="editQuestion">Edit</el-button>
-          <el-button @click="deleteQuestion">Delete</el-button>
-        </div>
+      <div class="content" v-html="question.html_content" v-highlight></div>
       <div class="answer">
         <h2>Answers:</h2>
         <div v-if="answers == ''">
@@ -32,31 +28,34 @@
         </div>
         <div v-else>
           <div v-if="accepted_answer != ''">
-            <show-answers @updatedAnswer="updatedAnswer"
+            <show-answer @acceptAnswer="acceptAnswer" v-if="answersHistory != ''"
               :_answer="accepted_answer"
               :question="question"
+              :answersHistory="answersHistory"
               :_is_accepted="true"
               :_user="user">
-            </show-answers>
+            </show-answer>
             <li v-for="answer in answers" :key="answer.pk">
               <div v-if="answer.status == false">
-                <show-answers @updatedAnswer="updatedAnswer"
+                <show-answer @acceptAnswer="acceptAnswer" v-if="answersHistory != ''"
                   :_answer="answer"
                   :question="question"
+                  :answersHistory="answersHistory"
                   :_is_accepted="true"
                   :_user="user">
-                </show-answers>
+                </show-answer>
               </div>
             </li>
           </div>
           <div v-else>
             <li v-for="answer in answers" :key="answer.pk">
-              <show-answers @acceptAnswer="acceptAnswer"
+              <show-answer @acceptAnswer="acceptAnswer" v-if="answersHistory != ''"
                 :_answer="answer"
                 :question="question"
+                :answersHistory="answersHistory"
                 :_is_accepted="false"
                 :_user="user">
-              </show-answers>
+              </show-answer>
             </li>
           </div>
         </div>
@@ -80,13 +79,13 @@ import Answer from "@/assets/utils/models/Answer";
 import { login_required } from '@/assets/utils/auth';
 import renderMath from "@/assets/utils/renderMath"
 import Navbar from "@/components/Navbar.vue";
-import ShowAnswers from '@/components/ShowAnswers.vue';
+import ShowAnswer from '@/components/ShowAnswer.vue';
 
 export default {
   name: "ShowQuestion",
   components: {
     Navbar,
-    ShowAnswers,
+    ShowAnswer,
   },
   data() {
     return {
@@ -96,7 +95,8 @@ export default {
       answers:'',
       accepted_answer:'',
       content: '',
-      is_answerable:true
+      is_answerable:true,
+      answersHistory:''
     }
   },
   methods: {
@@ -126,6 +126,7 @@ export default {
       let answer = this._getAnswer()
       answer.save().then(() => {
         this.content = ''
+        this.is_answerable = false
         Question.get(this.$route.params.id).then(question => {
           this.question = question
           this.answers = question.answers
@@ -148,16 +149,21 @@ export default {
       this.user = user
       Question.get(this.$route.params.id).then(question => {
         this.question = question
-        this.answers = question.answers
-        for (let answer of this.answers) {
-          if (answer.status == true) {
-            this.accepted_answer = answer
+        question.getAnswers().then(answers => {
+          this.answers = answers
+          for (let answer of this.answers) {
+            console.log(answer)
+            if (answer.status == true) {
+              this.accepted_answer = answer
+            }
+            if (answer.owner == this.user.pk) {
+              this.is_answerable = false
+            }
           }
-          if (answer.owner == user.pk) {
-            this.is_answerable = false
-            break
-          }
-        }
+        })
+        this.question.getLikeHistoryOfAnswers(this.user.pk).then(answersHistory => {
+          this.answersHistory = answersHistory
+        })
       })
     })
   },
