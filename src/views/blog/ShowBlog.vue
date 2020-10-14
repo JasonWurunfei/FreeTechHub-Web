@@ -37,15 +37,15 @@
              :_visitor=user />
           </div>
           <div class="likegroup">
-        <img src="@/assets/img/like.svg" @click="like" v-if="history=='liked'" alt="like-icon" />
-        <img src="@/assets/img/like-o.svg" @click="like" v-else alt="like-icon" />
-        <img
-          src="@/assets/img/dislike.svg"
-          @click="dislike"
-          v-if="history=='disliked'"
-          alt="dislike-icon"
-        />
-        <img src="@/assets/img/dislike-o.svg" @click="dislike" v-else alt="dislike-icon" />
+            <img src="@/assets/img/like.svg" @click="like" v-if="history=='liked'" alt="like-icon" />
+            <img src="@/assets/img/like-o.svg" @click="like" v-else alt="like-icon" />
+            <img
+              src="@/assets/img/dislike.svg"
+              @click="dislike"
+              v-if="history=='disliked'"
+              alt="dislike-icon"
+            />
+            <img src="@/assets/img/dislike-o.svg" @click="dislike" v-else alt="dislike-icon" />
           </div>
         </div>
       </div>
@@ -241,6 +241,7 @@ export default {
     },
     
   },
+  
   created() {
     login_required(this, user => {
       this.user = user

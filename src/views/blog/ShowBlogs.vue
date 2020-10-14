@@ -21,7 +21,7 @@
           <ul class="tag-list">
             <li v-for="tag in blog.tags" :key="tag.pk">{{tag.tag_name}}</li>
           </ul>
-          <p class="content" v-html="$options.filters.stringfilter(blog.html_content)"></p>
+          <p class="content" v-html="$options.filters.stringfilter(blog.html_content)" v-highlight></p>
           <p class="readmore">CONTINUE READING<img class="icon" src="@/assets/img/向右.svg" alt=""></p>
         </div>
       </li>

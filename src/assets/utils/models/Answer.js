@@ -11,7 +11,7 @@ class Answer extends Model {
     // the input argument must be something like:
     // {id: xxx, ....(other data fields)}
     constructor({id, content, time, status, owner, owner_instance,
-                 question, like_num, dislike_num,
+                 question, like_num, dislike_num, score,
                  content_type_id, root_comment}) {
         super({content, owner, question, status, root_comment})     // data fields that is requried when save
 
@@ -25,6 +25,7 @@ class Answer extends Model {
         }
         this.agree_num = like_num
         this.disagree_num = dislike_num
+        this.score = score
         this.content_type_id = content_type_id
         this.html_content = marked(this.content)
         this.reply = false
@@ -57,6 +58,14 @@ class Answer extends Model {
             }
         })
         return res.data
+    }
+
+    async getHistory(answersHistory) {
+        for (let i=0; i<answersHistory.length; i++) {
+            if (answersHistory[i]['answer_id'] == this.pk) {
+                return answersHistory[i]['history']
+            }
+        }
     }
     
     static async get(id) {
