@@ -35,6 +35,8 @@
             <FollowButton 
              :_content_owner=blog.owner_instance
              :_visitor=user />
+            <h5>{{blog.like_num}}</h5>
+            <h5>{{blog.dislike_num}}</h5>
           </div>
           <div class="likegroup">
             <img src="@/assets/img/like.svg" @click="like" v-if="history=='liked'" alt="like-icon" />
@@ -383,6 +385,9 @@ h1{
 .user div p {
   font-size: 1.08rem;
   word-break: break-all;
+}
+.badge{
+  padding: 0 7px;
 }
 button {
   border: 0;

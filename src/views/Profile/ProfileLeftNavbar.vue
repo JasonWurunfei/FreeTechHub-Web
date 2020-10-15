@@ -137,6 +137,9 @@ li:nth-last-child(1) {
 a{
   color: #000;
 }
+img{
+  margin-bottom: 10px;
+}
 .router-link-exact-active {
   color: #b83dba;
   background: #fe6b40;
