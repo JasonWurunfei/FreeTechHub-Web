@@ -35,19 +35,23 @@
             <FollowButton 
              :_content_owner=blog.owner_instance
              :_visitor=user />
-            <h5>{{blog.like_num}}</h5>
-            <h5>{{blog.dislike_num}}</h5>
           </div>
           <div class="likegroup">
-            <img src="@/assets/img/like.svg" @click="like" v-if="history=='liked'" alt="like-icon" />
-            <img src="@/assets/img/like-o.svg" @click="like" v-else alt="like-icon" />
-            <img
-              src="@/assets/img/dislike.svg"
-              @click="dislike"
-              v-if="history=='disliked'"
-              alt="dislike-icon"
-            />
-            <img src="@/assets/img/dislike-o.svg" @click="dislike" v-else alt="dislike-icon" />
+            <div class="like">
+              <img src="@/assets/img/like.svg" @click="like" v-if="history=='liked'" alt="like-icon" />
+              <img src="@/assets/img/like-o.svg" @click="like" v-else alt="like-icon" />
+              <h5>{{blog.like_num}}</h5>
+            </div>
+            <div class="dislike">
+              <img
+                src="@/assets/img/dislike.svg"
+                @click="dislike"
+                v-if="history=='disliked'"
+                alt="dislike-icon"
+              />
+              <img src="@/assets/img/dislike-o.svg" @click="dislike" v-else alt="dislike-icon" />
+              <h5>{{blog.dislike_num}}</h5>
+            </div>
           </div>
         </div>
       </div>
@@ -498,6 +502,27 @@ button:hover{
   margin-left: 20px;
   display: flex;
   flex-direction: column;
+}
+.like{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+.like img{
+  width: 25%;
+  padding-right: 10px;
+}
+.dislike{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.dislike img{
+  width: 25%;
+  padding-right: 10px;
 }
 @media screen and (max-width: 1025px) {
   .ShowBlog {

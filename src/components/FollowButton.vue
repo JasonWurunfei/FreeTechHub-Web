@@ -39,5 +39,7 @@ export default {
 </script>
 
 <style scoped>
-
+.FollowButton{
+  text-align: center;
+}
 </style>
