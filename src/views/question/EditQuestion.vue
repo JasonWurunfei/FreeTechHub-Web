@@ -24,7 +24,7 @@
         </div>
         <div>
           <p>Bounty</p>
-          <el-input v-model="bounty" placeholder="" type="number"></el-input>
+          <el-input class="allgrid" v-model="bounty" placeholder="" type="number"></el-input>
         </div>
         <div>
           <NewTag ref="NewTag" />
@@ -183,6 +183,9 @@ export default {
 </script>
 
 <style>
+.allgrid{
+  line-height: 45px;
+}
 .EditQuestion {
   margin-top: 11vh;
   height: 90vh;

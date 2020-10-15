@@ -12,7 +12,7 @@
       <div class="container" id="container">
         <div class="form-container sign-up-container">
           <form action="#">
-            <h1>Register</h1>
+            
             <Register />
           </form>
         </div>
@@ -181,6 +181,7 @@ p {
   letter-spacing: 0.5px;
   margin: 20px 0 30px;
 }
+
 span {
   font-size: 12px;
 }
@@ -199,7 +200,7 @@ a {
   overflow: hidden;
   width: 768px;
   max-width: 100%;
-  min-height: 520px;
+  min-height: 530px;
 }
 .form-container form {
   background-color: #fff;

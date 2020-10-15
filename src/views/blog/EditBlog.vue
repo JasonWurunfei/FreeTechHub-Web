@@ -20,7 +20,7 @@
       <div class="titleq">
         <div>
           <p>Title:{{title}}</p>
-          <el-input v-model="title" placeholder="Add a Title"></el-input>
+          <el-input class="allgrid" v-model="title" placeholder="Add a Title"></el-input>
         </div>
         <div>
           <NewTag ref="NewTag" />
@@ -165,6 +165,10 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.allgrid{
+  line-height: 55px;
 }
 
 .button1{

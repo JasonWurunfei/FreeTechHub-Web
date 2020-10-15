@@ -52,7 +52,7 @@ export default {
 
  <style scoped>
 .allgrid{
-  line-height: 2px;
+  line-height: 25px;
 }
 .NewTag{
   display: grid;
