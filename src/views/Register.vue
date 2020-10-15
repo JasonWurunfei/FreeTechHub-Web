@@ -1,5 +1,6 @@
 <template>
   <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm">
+    <p id= title>Register</p>
     <div class="inputbox">
       <el-form-item label="Username" prop="username">
         <el-input v-model="ruleForm.username" maxlength="10" show-word-limit></el-input>
@@ -158,6 +159,13 @@ export default {
 </script>
 
 <style scoped>
+#title{
+  font-size: 30px;
+  font-family: STFQLBYTJW;
+  line-height: 5px;
+  margin-top: 20px;
+  font-weight:bold;
+}
 .Register {
   margin: 0;
   padding: 0;
