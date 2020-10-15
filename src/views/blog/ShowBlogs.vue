@@ -123,7 +123,7 @@ button {
 }
 
 .ShowBlogs {
-  width: 100vw;
+  width: 90%;
   height: 100%;
   margin-top: 10vh;
   display: flex;
@@ -137,11 +137,12 @@ h1{
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  height: 2500px;
+  height: 2200px;
+  padding-left: 10vw;
 }
 .Cardlist li{
   position: relative;
-  width: 25%;
+  width: 20%;
   padding: 2px;
   margin: 10px;
   box-sizing: border-box;
