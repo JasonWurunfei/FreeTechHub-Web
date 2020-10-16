@@ -126,15 +126,19 @@ export default {
       let answer = this._getAnswer()
       answer.save().then(() => {
         this.content = ''
-        this.is_answerable = false
-        Question.get(this.$route.params.id).then(question => {
-          this.question = question
-          this.answers = question.answers
+        this.question.getAnswers().then(answers => {
+          this.answers = answers
           for (let answer of this.answers) {
             if (answer.status == true) {
               this.accepted_answer = answer
             }
+            if (answer.owner == this.user.pk) {
+              this.is_answerable = false
+            }
           }
+        })
+        this.question.getLikeHistoryOfAnswers(this.user.pk).then(answersHistory => {
+          this.answersHistory = answersHistory
         })
       })
     },
@@ -152,7 +156,6 @@ export default {
         question.getAnswers().then(answers => {
           this.answers = answers
           for (let answer of this.answers) {
-            console.log(answer)
             if (answer.status == true) {
               this.accepted_answer = answer
             }

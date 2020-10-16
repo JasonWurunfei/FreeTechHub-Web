@@ -34,7 +34,13 @@
         <h2>Content:</h2>
       </div>
       <div >
-        <mavon-editor :ishljs="true" :preview="true" v-model="content" placeholder="Content" class="editor1" />
+        <mavon-editor 
+        class="editor1"
+        v-model="content" 
+        :ishljs="true" 
+        :preview="true"
+        @imgAdd="imgAdd"
+        placeholder="Content" />
       </div>
     </el-col>
   </el-row>
@@ -80,6 +86,18 @@ export default {
   },
 
   methods: {
+    // imgAdd(pos, $file) {
+    //   let formdata = new FormData()
+    //   formdata.append('image', $file)
+    //   upload(formdata).then(res => {
+    //     if(res.code == 200) {
+    //       this.$refs.md.$img2Url(pos, res.data[0].url)
+    //     } else {
+    //       this.$message.error(res.message)
+    //     }
+    //   })
+    // },
+
     handleRemove(file, fileList) {
       this.hideUpload = fileList.length >= 1
     },
