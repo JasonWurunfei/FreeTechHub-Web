@@ -204,7 +204,17 @@ export default {
       login_required(this, () => {
         this.blog.like().then(() => {
           this.blog.getLikeHistory()
-          .then(history => this.history=history)
+          .then(history => {
+            // if disliked before, cancel it
+            if (this.history == 'disliked')
+              this.blog.dislike_num -= 1
+
+            this.history=history
+            if(history == 'none')
+              this.blog.like_num -= 1
+            else
+              this.blog.like_num += 1
+          })
         })
       })
     },
@@ -213,7 +223,16 @@ export default {
       login_required(this, () => {
         this.blog.dislike().then(() => {
           this.blog.getLikeHistory()
-          .then(history => this.history=history)
+          .then(history => {
+            // if liked before, cancel it
+            if (this.history == 'liked')
+              this.blog.like_num -= 1
+            this.history = history
+            if(history == 'none')
+              this.blog.dislike_num -= 1
+            else
+              this.blog.dislike_num += 1
+          })
         })
       })
     },
@@ -351,7 +370,6 @@ h1{
 }
 .buttons {
   grid-area: buttons;
-  display: flex;
   justify-content: center;
   display: block;
 }
@@ -383,6 +401,18 @@ h1{
   margin: 5px 0;
   font-size: 40px;
 }
+
+#addfriend-btn {
+  width: 30%;
+  height: 50%;
+  font-size: 40%;
+}
+
+#addfriend-btn:hover {
+  background: #ff9f48;
+  color: white;
+}
+
 .user div {
   width: 100%;
 }
@@ -442,16 +472,9 @@ button:hover{
 .likegroup {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  align-items: center;
 }
-.likegroup img {
-  width: 10%;
-  margin-top: 20px;
-  border-radius: 50%;
-  color: #4fb1ba;
-  box-shadow: rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-}
+
 .top {
   position: fixed;
   right: 0;
@@ -506,23 +529,24 @@ button:hover{
 .like{
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
-  margin: 0;
+  padding: 0 1vw;
 }
 .like img{
   width: 25%;
-  padding-right: 10px;
+  cursor: pointer;
 }
+
 .dislike{
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: center;
+  padding: 0 1vw;
 }
 .dislike img{
   width: 25%;
-  padding-right: 10px;
+  cursor: pointer;
 }
 @media screen and (max-width: 1025px) {
   .ShowBlog {
