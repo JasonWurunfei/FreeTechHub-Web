@@ -1,88 +1,52 @@
+
 <template>
-  <div class="AddFriend" 
-    id="AddFriend" 
-    @touchmove.prevent 
-    @mousewheel.prevent
-    v-if="_user.pk != _visitor.pk">
-    <div class="alert">
-      <div class="message">
-        <label>留言信息</label>
-        <textarea type="text" v-model="msg"></textarea>
-      </div>   
-      <div class="buttonlist">
-        <button @click="friend()">发送</button>
-        <button @click="cancel()">取消</button>
-      </div> 
-    </div>
+  <div class="AddFriend" id="AddFriend" @touchmove.prevent @mousewheel.prevent v-if="_user.pk != _visitor.pk">
+    <el-dialog :visible.sync="centerDialogVisible" width="30%" style="font-size:30px;" center>
+      <h1 style="text-align: center;">Message</h1>
+      <el-input type="textarea" :autosize="{ minRows: 6, maxRows: 8}" placeholder="Please leave a message " v-model="msg">
+      </el-input>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="centerDialogVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="friend()"><i class="el-icon-position"></i>Send</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 export default {
   name: 'AddFriend',
-  props:{
+  props: {
     status: Boolean,
     top: Number,
     _visitor: Object,
     _user: Object
   },
   data() {
-    return{
-      msg: ''
+    return {
+      msg: '',
+      centerDialogVisible: false
     }
   },
-  methods:{
-    cancel(){
+  methods: {
+    cancel() {
       this.$emit('closealert', false);
     },
     friend() {
       this._visitor.friend(this._user.pk, this.msg)
-      .then(() => {
-        this.$emit('closealert', false)
-      })
+        .then(() => {
+          this.$emit('closealert', false)
+        })
     }
+  },
+  created() {
+    this.centerDialogVisible = this.status
   },
 }
 </script>
 
 <style scoped>
-.AddFriend{
-  top: 0;
-  margin: 0;
-  padding: 0;
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(79, 56, 62, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.alert{
-  background: #5cb3cc;
-  width: 500px;
-  height: 350px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-}
-.message{
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-}
-.buttonlist{
-  display: flex;
-  justify-content: flex-start;
-}
-textarea{
-  width: 200px;
-  height: 80px;
-  border-radius: 10px;
-  margin-left: 20px;
-}
-button{
+button {
   width: 70px;
   height: 30px;
   margin: 0 20px;

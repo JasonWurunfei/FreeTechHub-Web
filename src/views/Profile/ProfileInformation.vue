@@ -1,63 +1,96 @@
 <template>
-  <div class="ProfileInformation">
-    <AddFriend
-      v-if="status && !_is_owner"
-      :status="this.status"
-      @closealert="closealert"
-      :_user=_user
-      :_visitor=_visitor />
-    <div class="profile">
-      <div class="head">
-        <img id="image" :src="profile_owner.avatar" />
-        <span id='username'>{{profile_owner.username}}</span>
-      </div>
-      <el-button v-if="profile_owner && _is_owner" @click="editProfile" icon="el-icon-edit" circle></el-button>
-      <div class="info">
+<div class="profile">
+  <AddFriend
+    v-if="status && !_is_owner"
+    :status="this.status"
+    @closealert="closealert"
+    :_user=_user
+    :_visitor=_visitor />
+  <el-row type="flex" justify="center">
+    <el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
+      <div class="both">
+        <div class="avatar">
+          <img id="image" :src="profile_owner.avatar" />
+        </div>
+        <div class="username">
+          <span id='username'>{{profile_owner.username}}</span>
+        </div>
         <div>
-          <div class="data">
-            <span class="data-name">major: </span>
-            <span class="data-value">{{profile_owner.major}}</span>
-          </div>
-          <div class="data">
-            <span class="data-name">Balance: </span>
-            <span class="data-value">{{profile_owner.blance}}</span>
-          </div>
-          <div class="data">
-            <span class="data-name">grade: </span>
-            <span class="data-value">{{profile_owner.grade}}</span>
-          </div>
+          <button class="edit" v-if="profile_owner && _is_owner" @click="editProfile">Edit</button>
         </div>
-        <p class="data">bio: {{profile_owner.bio}}</p>
-        <div class="buttons">
+        <div>
           <FollowButton
-          :_content_owner=_user
-          :_visitor=_visitor />
-          <button
-            @click="showalert"
-            id="addfriend-btn"
-            v-show="!_is_owner">Add Friend
-          </button>
+            :_content_owner=_user
+            :_visitor=_visitor />
+        </div>
+        <div>
+          <el-button @click="showalert" v-if="!_is_owner" round>Add Friend</el-button>
         </div>
       </div>
-    </div>
-    <div class="stats">
-      <div class="totals">
-        <p class='total'><i class="el-icon-view"></i>Total views:{{profile_owner.totalviews}}</p>
-        <p class='total'><i class="el-icon-star-on"></i>Follows: {{totalfollowing}}</p>
-        <br>
-        <p class='total'><i class="el-icon-thumb"></i>Total likes:{{profile_owner.totallikes}}</p>
-        <p class='total'><i class="el-icon-finished"></i>Accept rate: {{acceptance_rate}}</p>
+      <div class="BIO">
+        <h1>
+          <el-tag class="bio" effect="dark" type="success"><i class="el-icon-position"></i>Bio:</el-tag> {{profile_owner.bio}}
+        </h1>
       </div>
-      <div>
-        <div id="chart_example">
+    </el-col>
+    <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+      <div class="info">
+        <el-card class="box-card">
+          <div>
+            <h1>
+              <el-tag class="bio" effect="dark" type="success"><i class="el-icon-school"></i>Major: </el-tag> {{profile_owner.major}}
+            </h1>
+          </div>
+          <div>
+            <h1>
+              <el-tag class="bio" effect="dark" type="success"><i class="el-icon-coin"></i>Balance: </el-tag> {{profile_owner.blance}}
+            </h1>
+          </div>
+          <div>
+            <h1>
+              <el-tag class="bio" effect="dark" type="success"><i class="el-icon-wind-power"></i>Grade: </el-tag> {{profile_owner.grade}}
+            </h1>
+          </div>
+        </el-card>
+        <div>
+          <div id="chart_example">
+          </div>
         </div>
       </div>
-    </div>
-    <div class="activity">
-      <p>Your activity in this year:</p>
-      <canvas id="canvas"></canvas>
-    </div>
+    </el-col>
+    <el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
+      <div class="total">
+        <el-card class="box-card">
+          <div>
+            <h1>
+              <el-tag class="bio" effect="dark" type="success"><i class="el-icon-view"></i>Total views: </el-tag> {{profile_owner.totalviews}}
+            </h1>
+          </div>
+          <div>
+            <h1>
+              <el-tag class="bio" effect="dark" type="success"><i class="el-icon-star-on"></i>Follows: </el-tag> {{totalfollowing}}
+            </h1>
+          </div>
+          <div>
+            <h1>
+              <el-tag class="bio" effect="dark" type="success"><i class="el-icon-thumb"></i>Total likes:</el-tag> {{profile_owner.totallikes}}
+            </h1>
+          </div>
+          <div>
+            <h1>
+              <el-tag class="bio" effect="dark" type="success"><i class="el-icon-finished"></i>Accept rate:</el-tag> {{acceptance_rate}}
+            </h1>
+          </div>
+        </el-card>
+      </div>
+    </el-col>
+  </el-row>
+  <div class="activity">
+    <p>Your activity in this year:</p>
+    <canvas id="canvas"></canvas>
   </div>
+
+</div>
 </template>
 
 <script>
@@ -93,10 +126,10 @@ export default {
         }
       })
     },
-    showalert(){
-      this.status = ! this.status
+    showalert() {
+      this.status = !this.status
     },
-    closealert(val){
+    closealert(val) {
       this.status = val
     },
   },
@@ -118,7 +151,8 @@ export default {
   },
   mounted() {
     var colorList = ['#9370DB', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976',
-    '#6173d6','#914ce5', '#42b1cc', '#ff55ac', '#0090ff']
+      '#6173d6', '#914ce5', '#42b1cc', '#ff55ac', '#0090ff'
+    ]
     let myChart = echarts.init(document.getElementById('chart_example'));
     User.gettags(this.$route.params.id).then(res => {
       this.data1 = res.Bdata
@@ -259,131 +293,14 @@ export default {
 </script>
 
 <style scoped>
-@import url("//unpkg.com/element-ui@2.13.2/lib/theme-chalk/index.css");
-
-
-
-#chart_example{
-  width: 30vw;
-  height: 190px;
-}
-.ProfileInformation {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: flex;
-}
-div {
-  background: #f9f6ff;
-  padding: 10px;
-}
-img {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  overflow: hidden;
-}
-.profile {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  flex-grow: unset;
-}
-
-.head {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-left: 5%;
-}
-
-.info{
-  font-weight: 400;
-  font-size: 250%;
-  color: #8188d5;
-  font-family: Cursive;
-  padding: 0;
-  justify-items: center;
-}
-.info div {
-  display: flex;
-}
-.data {
-  width: 25%;
-  align-items: center;
-  margin: 0 5%;
-}
-.data-name {
-  font-size: 100%;
-  padding: 0%;
-}
-
-.data-value {
-  font-size: 70%;
-  margin: 2%;
-}
-
-.buttons {
-  height: 6vh;
-}
-
-.buttons button {
-  margin: 1vh 3vw;
-}
-
-
-#username{
-  font-weight:900;
-  font-size: 300%;
-  color:#8188d5;
-  font-family:STFQLBYTJW;
-}
-.profile div p {
-  display: inline;
-  padding-left: 30px;
-}
-.profile div:nth-child(2) {
-  bottom: 100px;
-}
-.stats {
-  display: flex;
-  flex-direction: row;
-}
-
-.total{
-  font-weight:500;
-  font-size: 250%;
-  color: #8188d5;
-  font-family:Cursive;
-  margin: 0%;
-}
-
-.totals {
-  margin-left: 5vw;
-}
-
-.stats div p {
-  display: inline;
-  padding-right: 30px;
-}
-.stats div img {
-  display: inline-block;
-  width: 60px;
-  height: 60px;
-  top: 28px;
-  right: 5px;
-  bottom: 20px;
-}
-
 .activity {
   margin-bottom: 5%;
 }
 
 .activity p {
-  font-weight:900;
+  font-weight: 900;
   font-size: 200%;
-  color:#8188d5;
+  color: #8188d5;
   margin: 0%;
   margin-left: 7%;
   margin-bottom: 1%;
@@ -396,36 +313,77 @@ img {
   height: 90%;
   margin-left: 7%;
 }
-@media screen and (max-width: 1280px){
-  .info div{
-    display: flex;
-    flex-direction: column;
-  }
-  .data{
-    display: flex;
-    flex-direction: column;
-  }
-  .data-name {
-    font-size: 50%;
-    padding: 0%;
-  }
-  .data-value {
-    font-size: 70%;
-    margin: 2%;
-  }
-  .totals{
-    display: flex;
-    flex-direction: column;
-  }
-  .total{
-    font-weight:500;
-    font-size: 150%;
-    color: #8188d5;
-    font-family:Cursive;
-    margin: 0%;
-  }
-  br{
-    display: none;
-  }
+
+#chart_example {
+  width: 30vw;
+  height: 190px;
+}
+
+.info {
+  margin-top: 50px;
+}
+
+.total {
+  margin-top: 50px;
+}
+
+h1 {
+  font-size: 30px;
+}
+
+.profile {
+  background: #fafbff;
+  font-family: STFQLBYTJW;
+}
+
+.both {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  line-height: 50px;
+}
+
+.avatar {
+  margin-top: 6%;
+}
+
+.BIO {
+  text-align: center;
+}
+
+.bio {
+  font-size: 30px;
+  height: 32px;
+}
+
+.edit {
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  border: 0;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  width: 40%;
+  border-radius: 5px;
+  min-width: 8vw;
+  min-height: 5vh;
+  font-size: 1.5rem;
+  color: #311f1f;
+  margin-bottom: 10%;
+}
+
+img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+#username {
+  text-align: center;
+  font-weight: 900;
+  font-size: 300%;
+  color: #8188d5;
+  font-family: STFQLBYTJW;
 }
 </style>
