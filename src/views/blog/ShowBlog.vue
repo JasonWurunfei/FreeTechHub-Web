@@ -504,6 +504,9 @@ button:hover{
   padding: 0 5vw;
   font-family: Arial, Helvetica, sans-serif;
 }
+.taggroup a{
+  margin: 0 10px;
+}
 .comment {
   grid-area: comment;
   display: block;
