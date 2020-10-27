@@ -19,7 +19,7 @@
           </div>
           <h4>Tags: </h4>
           <ul class="tag-list">
-            <li v-for="tag in blog.tags" :key="tag.pk">{{tag.tag_name}}</li>
+            <li v-for="tag in blog.tags" :key="tag.pk" class="badge badge-primary">{{tag.tag_name}}</li>
           </ul>
           <p class="content" v-html="$options.filters.stringfilter(blog.html_content)" v-highlight></p>
           <p class="readmore">CONTINUE READING<img class="icon" src="@/assets/img/向右.svg" alt=""></p>
@@ -229,6 +229,9 @@ a {
 }
 .create{
   text-align: center;
+}
+.badge{
+  font-size: 16px;
 }
 @media screen and (max-width: 1280px){
   .ShowBlogs{
