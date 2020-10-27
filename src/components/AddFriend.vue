@@ -6,8 +6,10 @@
       <el-input type="textarea" :autosize="{ minRows: 6, maxRows: 8}" placeholder="Please leave a message " v-model="msg">
       </el-input>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="centerDialogVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="friend()"><i class="el-icon-position"></i>Send</el-button>
+        <div style="  text-align: center;font-size:5px">
+        <button @click="centerDialogVisible = false">Cancel</button>
+        <button @click="friend()"><i class="el-icon-position"></i>Send</button>
+        </div>
       </span>
     </el-dialog>
   </div>
