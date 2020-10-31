@@ -35,12 +35,13 @@
       </div>
       <div >
         <mavon-editor 
-        class="editor1"
-        v-model="content" 
-        :ishljs="true" 
-        :preview="true"
-        @imgAdd="imgAdd"
-        placeholder="Content" />
+          ref=md
+          class="editor1"
+          v-model="content" 
+          :ishljs="true" 
+          :preview="true"
+          @imgAdd="$imgAdd"
+          placeholder="Content" />
       </div>
     </el-col>
   </el-row>
@@ -56,6 +57,7 @@ import Tag from '@/assets/utils/models/Tag'
 import Navbar from '@/components/Navbar.vue'
 import NewTag from '@/components/Tags/NewTag.vue'
 import { login_required } from '@/assets/utils/auth'
+import User from '@/assets/utils/models/User.js'
 
 export default {
   name: 'EditBlog',
@@ -86,17 +88,9 @@ export default {
   },
 
   methods: {
-    // imgAdd(pos, $file) {
-    //   let formdata = new FormData()
-    //   formdata.append('image', $file)
-    //   upload(formdata).then(res => {
-    //     if(res.code == 200) {
-    //       this.$refs.md.$img2Url(pos, res.data[0].url)
-    //     } else {
-    //       this.$message.error(res.message)
-    //     }
-    //   })
-    // },
+    $imgAdd(pos, $file) {
+      User.uploadImg(pos, $file, this.$refs.md)
+    },
 
     handleRemove(file, fileList) {
       this.hideUpload = fileList.length >= 1

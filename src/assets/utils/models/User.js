@@ -157,6 +157,25 @@ class User extends Model {
       return res.data
     }
 
+    static async uploadImg(pos, $file, vm) {
+        // 第一步.将图片上传到服务器.
+      var formdata = new FormData();
+      formdata.append('image', $file);
+      axios({
+        url: BASE_URL+"imgUpload/",
+        method: 'post',
+        data: formdata,
+        headers: { 
+          'Content-Type': 'multipart/form-data',
+        },
+      }).then((res) => {
+        console.log(res.data)
+        // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
+        // $vm.$img2Url 详情见本页末尾
+        vm.$img2Url(pos, res.data);
+      })
+    }
+
     // Get tags
     static async gettags(param) {
         let res = await axios.get(BASE_URL + `user/gettags/${param}/`)

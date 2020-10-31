@@ -2,7 +2,7 @@
   <div class="EditSeries">
     <Navbar/>
     <el-input class="title" type="text" v-model="name"></el-input>
-    <mavon-editor class="editor" v-model="description"/>
+    <mavon-editor ref=md class="editor" v-model="description"/>
     <h2 class="choose">Choose the blogs and series to be include in this series</h2>
     <div class="sub">
       <div class="subseries">
@@ -36,6 +36,7 @@
 import Navbar from '@/components/Navbar.vue'
 import { login_required } from '@/assets/utils/auth'
 import Series from '@/assets/utils/models/Series'
+import User from '@/assets/utils/models/User.js'
 
 export default {
   name: "EditSeries",
@@ -59,6 +60,9 @@ export default {
     }
   },
   methods: {
+    $imgAdd(pos, $file) {
+      User.uploadImg(pos, $file, this.$refs.md)
+    },
     // build the list data structure
     make_choice_list(related_content) {
       let list = {}

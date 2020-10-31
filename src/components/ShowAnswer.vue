@@ -65,6 +65,7 @@
             </div>
             <div v-else>
               <mavon-editor
+                ref=md
                 :ishljs="true"
                 :preview="true"
                 v-model="answer.content"
@@ -115,6 +116,7 @@ import Answer from "@/assets/utils/models/Answer";
 import Transaction from '@/assets/utils/models/Transaction';
 import ShowComments from '@/components/ShowComments.vue';
 import renderMath from "@/assets/utils/renderMath"
+import User from '@/assets/utils/models/User.js'
 
 export default {
 	name:"ShowAnswers",
@@ -135,6 +137,9 @@ export default {
 		}
 	},
 	methods: {
+    $imgAdd(pos, $file) {
+      User.uploadImg(pos, $file, this.$refs.md)
+    },
     _getTransaction(){
       return new Transaction({
         user: this.question.owner,
