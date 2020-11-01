@@ -38,7 +38,7 @@
         <h2>Content:</h2>
       </div>
       <div >
-        <mavon-editor ref=md :ishljs="true" :preview="true" v-model="content" placeholder="Content" class="editor1" />
+        <mavon-editor ref=md @imgAdd="$imgAdd" :ishljs="true" :preview="true" v-model="content" placeholder="Content" class="editor1" />
       </div>
     </el-col>
   </el-row>
