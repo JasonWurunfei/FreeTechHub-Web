@@ -5,11 +5,17 @@
       <div v-if="is_root == true ">
         <div v-if="is_reply == true">
           <mavon-editor :ishljs="true" :preview="true" v-model="comment_content" placeholder="What do you want to post" />
-          <el-button @click="saveComment(comment_tree.comment)">Post a comment</el-button>
-          <el-button @click="is_reply = false">Cancel</el-button>
+          <el-row type="flex" justify="center">
+            <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+              <el-button class="button1" @click="saveComment(comment_tree.comment)">Post a comment</el-button>
+            </el-col>
+            <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+              <el-button class="button1" @click="is_reply = false">Cancel</el-button>
+            </el-col>
+          </el-row>
         </div>
         <div v-else>
-          <el-button @click="is_reply = true">replyToAnswer</el-button>
+          <el-link style=" font-size:20px; word-wrap:break-word;word-break:normal; " icon="el-icon-edit-outline" :underline="false" @click="is_reply = true">Add a comment</el-link>
         </div>
       </div>
     </div>
