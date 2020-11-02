@@ -30,7 +30,7 @@
             <el-row type="flex" justify="center">
               <el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5">
                 <router-link :to="{name: 'ProfileInformation', params: {id: comment_tree.comment.owner_instance.pk}}" class="comment-username">
-                  <i>{{ comment_tree.comment.owner_instance.username }}</i>
+                  <i class="usnae">{{ comment_tree.comment.owner_instance.username }}</i>
                 </router-link>
               </el-col>
               <el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9">
@@ -190,26 +190,18 @@ export default {
   font-family: STFQLBYTJW
 }
 
-
 li {
   list-style: none;
-}
-
-.card-header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
 }
 
 .avatar {
   border-radius: 50%;
   width: 70%;
-  margin: 10px;
   border-radius: 50%;
 }
 
 .comment-username {
+  line-height: 1.5rem;
   font-size: 200%;
   color: black;
   font-weight: bold

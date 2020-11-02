@@ -29,16 +29,21 @@
             </el-row>
           </el-col>
         </el-row>
-
-        <div class="agreegroup">
-          <img src="@/assets/img/agree-o.svg" @click="agree" v-if="history=='liked'" alt="like-icon" />
-          <img src="@/assets/img/agree.svg" @click="agree" v-else alt="like-icon" />
-          <p>{{ answer.agree_num }}</p>
-          <p>{{ answer.disagree_num }}</p>
-          <img src="@/assets/img/disagree-o.svg" @click="disagree" v-if="history=='disliked'" alt="dislike-icon" />
-          <img src="@/assets/img/disagree.svg" @click="disagree" v-else alt="dislike-icon" />
-        </div>
-        <p class="card-content" v-if="is_editing==false" v-html="answer.html_content" v-highlight></p>
+        <el-row type="flex" justify="center">
+          <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
+            <div class="agreegroup">
+              <img src="@/assets/img/agree-o.svg" @click="agree" v-if="history=='liked'" alt="like-icon" />
+              <img src="@/assets/img/agree.svg" @click="agree" v-else alt="like-icon" />
+              <p style="margin-left: 10%;">{{ answer.agree_num }}</p>
+              <p style="margin-left: 10%; line-height:5px ;">{{ answer.disagree_num }}</p>
+              <img src="@/assets/img/disagree-o.svg" @click="disagree" v-if="history=='disliked'" alt="dislike-icon" />
+              <img src="@/assets/img/disagree.svg" @click="disagree" v-else alt="dislike-icon" />
+            </div>
+          </el-col>
+          <el-col :xs="21" :sm="21" :md="21" :lg="21" :xl="21">
+            <p class="card-content" v-if="is_editing==false" v-html="answer.html_content" v-highlight></p>
+          </el-col>
+        </el-row>
         <show-comments @updatedTree="updatedTree" v-if="fold == false && wrapped_tree != ''" :node_id="answer.root_comment" :root_id="answer.root_comment" :wrapped_tree="wrapped_tree" :is_root="true" :_fold="false" :_blog="false" :_answer="true"
           :_user="_user">
         </show-comments>
@@ -77,19 +82,16 @@
               </div>
             </div>
             <div v-else>
-              <mavon-editor
-                ref=md
-                :ishljs="true"
-                :preview="true"
-                v-model="answer.content"
-              />
-              <el-button @click="saveAnswer(answer)">Save</el-button>
-              <el-button @click="cancel(answer)">Cancel</el-button>
+              <mavon-editor ref=md :ishljs="true" :preview="true" v-model="answer.content" />
+              <el-row type="flex" justify="center">
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                  <el-button class="button1" @click="saveAnswer(answer)">Save</el-button>
+                </el-col>
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                  <el-button class="button1" @click="cancel(answer)">Cancel</el-button>
+                </el-col>
+              </el-row>
             </div>
-            <div v-if="user.pk == question.owner">
-              <el-button @click="acceptAnswer(answer)">Accept</el-button>
-            </div>
-
           </el-col>
         </el-row>
         <!-- <div v-if="user.pk == question.owner">
@@ -144,14 +146,14 @@ export default {
       history: '',
       fold: true,
       is_accepted: this._is_accepted,
-      is_editing:false,
-		}
-	},
-	methods: {
+      is_editing: false,
+    }
+  },
+  methods: {
     $imgAdd(pos, $file) {
       User.uploadImg(pos, $file, this.$refs.md)
     },
-    _getTransaction(){
+    _getTransaction() {
       return new Transaction({
         user: this.question.owner,
         amount: this.question.bounty,
@@ -268,9 +270,7 @@ export default {
 <style scoped>
 * {
   list-style: none;
-  /* margin: 10px; */
   font-family: STFQLBYTJW;
-  /* margin: 0; */
 }
 
 img {
@@ -282,19 +282,6 @@ img {
   border-radius: 50%;
   width: 80%;
   border-radius: 50%;
-}
-
-.card-header {
-  display: grid;
-  grid-template-areas: "left right";
-
-}
-
-.left {
-  grid-area: left;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
 }
 
 .button1 {
@@ -313,17 +300,5 @@ img {
   font-size: 1.5rem;
   color: #311f1f;
   margin-bottom: 10%;
-}
-
-.right {
-  grid-area: right;
-}
-
-.content {
-  text-align: left;
-}
-
-.status {
-  text-align: left;
 }
 </style>
