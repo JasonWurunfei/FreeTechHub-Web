@@ -2,7 +2,7 @@
   <div class="EditSeries">
     <Navbar/>
     <el-input class="title" type="text" v-model="name"></el-input>
-    <mavon-editor class="editor" v-model="description"/>
+    <mavon-editor ref=md @imgAdd="$imgAdd" class="editor" v-model="description"/>
     <h2 class="choose">Choose the blogs and series to be include in this series</h2>
     <div class="sub">
       <div class="subseries">
@@ -59,6 +59,9 @@ export default {
     }
   },
   methods: {
+    $imgAdd() {
+      alert("Image is not not allowed here.")
+    },
     // build the list data structure
     make_choice_list(related_content) {
       let list = {}

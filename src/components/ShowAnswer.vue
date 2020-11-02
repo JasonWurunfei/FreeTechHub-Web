@@ -77,15 +77,17 @@
               </div>
             </div>
             <div v-else>
-              <mavon-editor :ishljs="true" :preview="true" v-model="answer.content" />
-              <el-row type="flex" justify="center">
-                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-                  <el-button class="button1" @click="saveAnswer(answer)">Save</el-button>
-                </el-col>
-                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-                  <el-button class="button1" @click="cancel(answer)">Cancel</el-button>
-                </el-col>
-              </el-row>
+              <mavon-editor
+                ref=md
+                :ishljs="true"
+                :preview="true"
+                v-model="answer.content"
+              />
+              <el-button @click="saveAnswer(answer)">Save</el-button>
+              <el-button @click="cancel(answer)">Cancel</el-button>
+            </div>
+            <div v-if="user.pk == question.owner">
+              <el-button @click="acceptAnswer(answer)">Accept</el-button>
             </div>
 
           </el-col>
@@ -125,6 +127,7 @@ import Answer from "@/assets/utils/models/Answer";
 import Transaction from '@/assets/utils/models/Transaction';
 import ShowComments from '@/components/ShowComments.vue';
 import renderMath from "@/assets/utils/renderMath"
+import User from '@/assets/utils/models/User.js'
 
 export default {
   name: "ShowAnswers",
@@ -141,11 +144,14 @@ export default {
       history: '',
       fold: true,
       is_accepted: this._is_accepted,
-      is_editing: false,
-    }
-  },
-  methods: {
-    _getTransaction() {
+      is_editing:false,
+		}
+	},
+	methods: {
+    $imgAdd(pos, $file) {
+      User.uploadImg(pos, $file, this.$refs.md)
+    },
+    _getTransaction(){
       return new Transaction({
         user: this.question.owner,
         amount: this.question.bounty,

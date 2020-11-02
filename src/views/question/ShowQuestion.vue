@@ -182,6 +182,9 @@ export default {
 </script>
 
 <style scoped>
+img {
+    max-width: 100%;
+}
 * {
   margin: 0;
   padding: 0;
@@ -251,6 +254,7 @@ li{
   grid-area: content;
   word-wrap: break-word;
   margin-left: 5vw;
+  padding-right: 5vw;
 }
 .question{
   width: 100%;

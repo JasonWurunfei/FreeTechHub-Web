@@ -38,7 +38,7 @@
         <h2>Content:</h2>
       </div>
       <div >
-        <mavon-editor :ishljs="true" :preview="true" v-model="content" placeholder="Content" class="editor1" />
+        <mavon-editor ref=md @imgAdd="$imgAdd" :ishljs="true" :preview="true" v-model="content" placeholder="Content" class="editor1" />
       </div>
     </el-col>
   </el-row>
@@ -55,6 +55,7 @@ import {login_required} from '@/assets/utils/auth'
 import NewTag from '@/components/Tags/NewTag.vue'
 import Tag from '@/assets/utils/models/Tag'
 import Navbar from '@/components/Navbar'
+import User from '@/assets/utils/models/User.js'
 
 export default {
   name: 'EditQuestion',
@@ -80,6 +81,9 @@ export default {
   },
 
   methods: {
+    $imgAdd(pos, $file) {
+      User.uploadImg(pos, $file, this.$refs.md)
+    },
     handleRemove(file, fileList) {
       this.hideUpload = fileList.length >= 1
     },

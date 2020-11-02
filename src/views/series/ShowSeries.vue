@@ -15,11 +15,10 @@
             <img class="avatar" :src="series.owner_instance.avatar">
             <a href="">{{series.owner_instance.username}}</a>
           </div>
-          <h3>Tags: </h3>
-          <ul>
-            <li v-for="tag in series.tags" :key="tag.pk">
-              {{tag.tag_name}}
-            </li>
+          
+          <ul  v-show="series.tags.length!=0" class="tag-list">
+            <p>Tags: </p>
+            <li v-for="tag in series.tags" :key="tag.pk" class="badge badge-primary">{{tag.tag_name}}</li>
           </ul>
           <p class="seriescontent">{{ series.description | stringfilter}}</p>
           <p class="readmore">CONTINUE READING<img class="icon" src="@/assets/img/向右.svg" alt=""></p>
