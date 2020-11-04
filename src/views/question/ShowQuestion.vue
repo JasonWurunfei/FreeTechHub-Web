@@ -1,82 +1,75 @@
 <template>
-  <div class="ShowQuestion">
-    <Navbar />
-    <div class="question" v-if="question != ''">
-      <div class="title">
-        <h1>{{ question.title }}</h1>
-        <p class="bounty">Bounty:{{ question.bounty }}</p>
-        <p class="status" v-if="question.status == false">Unsolved</p>
-        <p class="status" v-else>Solved</p>
+<div class="ShowQuestion">
+  <Navbar />
+  <div class="question" v-if="question != ''">
+    <div class="title">
+      <h1>{{ question.title }}</h1>
+      <p class="bounty">Bounty:{{ question.bounty }}</p>
+      <p class="status" v-if="question.status == false">Unsolved</p>
+      <p class="status" v-else>Solved</p>
+    </div>
+    <div class="left">
+      <div class="Publisher">
+        <img class="avatar" :src="question.owner_instance.avatar" />
+        <h1>{{ question.owner_instance.username }}</h1>
       </div>
-      <div class="left">
-        <div class="Publisher">
-          <img class="avatar" :src="question.owner_instance.avatar" />
-          <h1>{{ question.owner_instance.username }}</h1>
-        </div>
+    </div>
+    <div class="taggroup" v-if="question.tags.length != 0">
+      <a href v-for="tag in question.tags" :key="tag.pk">
+        <span class="badge badge-success">{{ tag.tag_name }}</span>
+      </a>
+    </div>
+    <div class="content" v-html="question.html_content" v-highlight></div>
+    <div class="answer">
+      <h2>Answers:</h2>
+      <div v-if="answers == ''">
+        <el-row type="flex" justify="center">
+          <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
+            <!-- <el-divider></el-divider> -->
+            <i style="font-weight:900; color:gray">Sorry, no one has answered this question yet.......</i>
+            <img class="awk" src="@/assets/img/awkward.jpg">
+          </el-col>
+        </el-row>
       </div>
-      <div class="taggroup" v-if="question.tags.length != 0">
-        <a href v-for="tag in question.tags" :key="tag.pk">
-          <span class="badge badge-success">{{ tag.tag_name }}</span>
-        </a>
-      </div>
-      <div class="content" v-html="question.html_content" v-highlight></div>
-      <div class="answer">
-        <h2>Answers:</h2>
-        <div v-if="answers == ''">
-          <h3>Sorry, no one has answered this question yet.</h3>
-          <img src="@/assets/img/awkward.jpg">
+      <div v-else>
+        <div v-if="accepted_answer != ''">
+          <show-answer @acceptAnswer="acceptAnswer" v-if="answersHistory != ''" :_answer="accepted_answer" :question="question" :answersHistory="answersHistory" :_is_accepted="true" :_user="user">
+          </show-answer>
+          <li v-for="answer in answers" :key="answer.pk">
+            <div v-if="answer.status == false">
+              <show-answer @acceptAnswer="acceptAnswer" v-if="answersHistory != ''" :_answer="answer" :question="question" :answersHistory="answersHistory" :_is_accepted="true" :_user="user">
+              </show-answer>
+            </div>
+          </li>
         </div>
         <div v-else>
-          <div v-if="accepted_answer != ''">
-            <show-answer @acceptAnswer="acceptAnswer" v-if="answersHistory != ''"
-              :_answer="accepted_answer"
-              :question="question"
-              :answersHistory="answersHistory"
-              :_is_accepted="true"
-              :_user="user">
+          <li v-for="answer in answers" :key="answer.pk">
+            <show-answer @acceptAnswer="acceptAnswer" v-if="answersHistory != ''" :_answer="answer" :question="question" :answersHistory="answersHistory" :_is_accepted="false" :_user="user">
             </show-answer>
-            <li v-for="answer in answers" :key="answer.pk">
-              <div v-if="answer.status == false">
-                <show-answer @acceptAnswer="acceptAnswer" v-if="answersHistory != ''"
-                  :_answer="answer"
-                  :question="question"
-                  :answersHistory="answersHistory"
-                  :_is_accepted="true"
-                  :_user="user">
-                </show-answer>
-              </div>
-            </li>
-          </div>
-          <div v-else>
-            <li v-for="answer in answers" :key="answer.pk">
-              <show-answer @acceptAnswer="acceptAnswer" v-if="answersHistory != ''"
-                :_answer="answer"
-                :question="question"
-                :answersHistory="answersHistory"
-                :_is_accepted="false"
-                :_user="user">
-              </show-answer>
-            </li>
-          </div>
+          </li>
         </div>
       </div>
-      <div class="editor" v-if="this.accepted_answer == '' && user.pk != question.owner && is_answerable == true">
-        <mavon-editor
-          :ishljs="true"
-          :preview="true"
-          v-model="content"
-          placeholder="Post your answer"
-        />
-        <el-button @click="saveAnswer()">Post</el-button>
+    </div>
+    <div class="editor" v-if="this.accepted_answer == '' && user.pk != question.owner && is_answerable == true">
+      <mavon-editor :ishljs="true" :preview="true" v-model="content" placeholder="Post your answer" />
+      <div>
+        <el-row type="flex" justify="center">
+          <el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5">
+            <el-button @click="saveAnswer()">Post</el-button>
+          </el-col>
+        </el-row>
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
 import Question from "@/assets/utils/models/Question";
 import Answer from "@/assets/utils/models/Answer";
-import { login_required } from '@/assets/utils/auth';
+import {
+  login_required
+} from '@/assets/utils/auth';
 import renderMath from "@/assets/utils/renderMath"
 import Navbar from "@/components/Navbar.vue";
 import ShowAnswer from '@/components/ShowAnswer.vue';
@@ -89,27 +82,31 @@ export default {
   },
   data() {
     return {
-      user:'',
+      user: '',
       id: '',
       question: '',
-      answers:'',
-      accepted_answer:'',
+      answers: '',
+      accepted_answer: '',
       content: '',
-      is_answerable:true,
-      answersHistory:''
+      is_answerable: true,
+      answersHistory: ''
     }
   },
   methods: {
     deleteQuestion() {
       this.question.delete().then(() => {
-        this.$router.push({ name: "ShowQuestions" })
+        this.$router.push({
+          name: "ShowQuestions"
+        })
       })
     },
 
     editQuestion() {
       this.$router.push({
         name: "EditQuestion",
-        params: { id: this.$route.params.id },
+        params: {
+          id: this.$route.params.id
+        },
       })
     },
 
@@ -183,30 +180,42 @@ export default {
 
 <style scoped>
 img {
-    max-width: 100%;
+  max-width: 100%;
 }
+
+.awk {
+  max-width: 4%;
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
 }
-li{
+
+li {
   list-style: none;
   margin: 2vh 0;
 }
+
 .ShowQuestion {
   margin-top: 10vh;
   width: 100vw;
   height: 100%;
 }
-.title{
+
+.title {
   grid-area: title;
 }
-.title h1{
+
+.title h1 {
   text-align: center;
 }
-.left{
+
+.left {
   margin: 0;
   padding: 0;
   position: fixed;
@@ -221,15 +230,18 @@ li{
   justify-content: center;
   align-items: center;
 }
+
 .landing {
   position: absolute;
   width: 100%;
   z-index: -1;
 }
+
 .title p {
   display: inline-block;
   margin: 2vh 2vw;
 }
+
 .Publisher {
   margin: 2vh 3vw;
   display: flex;
@@ -238,61 +250,73 @@ li{
   align-items: center;
   padding-bottom: 15vh;
 }
+
 .Publisher img {
   width: 40%;
   border-radius: 50%;
 }
-.Publisher h1{
+
+.Publisher h1 {
   margin-top: 3vh;
 }
+
 .buttons {
   grid-area: buttons;
   display: flex;
   justify-content: center;
 }
+
 .content {
   grid-area: content;
   word-wrap: break-word;
   margin-left: 5vw;
   padding-right: 5vw;
 }
-.question{
+
+.question {
   width: 100%;
   height: 100%;
   z-index: 1;
   background: white;
   display: grid;
   grid-template-areas: "left title"
-                       "left content"
-                       "left taggroup"
-                       "left buttons"
-                       "left answer"
-                       "left editor";
+    "left content"
+    "left taggroup"
+    "left buttons"
+    "left answer"
+    "left editor";
   grid-template-columns: 25% 75%;
 }
-.answer{
+
+.answer {
   grid-area: answer;
 }
-.editor{
+
+.editor {
   grid-area: editor;
 }
+
 .comment {
   grid-area: comment;
   display: block;
   margin: 5% 2%;
 }
+
 .comment img {
   width: 60%;
   min-width: 100px;
 }
+
 .comment li {
   margin: 8vh 10px;
   padding-bottom: 2vh;
   border-bottom: 1px solid gray;
 }
+
 .comment li:nth-last-child(1) {
   border: none !important;
 }
+
 .card {
   display: grid;
   grid-template-areas:
@@ -302,6 +326,7 @@ li{
   justify-items: stretch;
   grid-gap: 20px;
 }
+
 .card-img {
   grid-area: card-img;
   align-self: center;
@@ -309,46 +334,57 @@ li{
   flex-direction: column;
   align-items: center;
 }
+
 .card-title {
   grid-area: card-title;
 }
+
 .card-content {
   grid-area: card-content;
   word-break: break-all;
 }
+
 .badge {
   font-size: 22px;
   font-weight: 400;
   height: 26px;
 }
-.tag-img{
+
+.tag-img {
   width: 20%;
 }
-.tag:hover{
+
+.tag:hover {
   border-bottom: 1px solid rgba(79, 177, 186, 0.5);
 }
-.tag:focus{
+
+.tag:focus {
   border-bottom: 2px solid rgba(4, 112, 124, 0.5)
 }
+
 .icon {
   width: 40%;
 }
-.taggroup{
+
+.taggroup {
   grid-area: taggroup;
   display: flex;
   justify-content: baseline;
 }
+
 .status {
   grid-area: status;
   align-self: center;
   text-align: center;
 }
+
 .accept {
   grid-area: accept;
   margin: 0;
   align-self: center;
   width: 100%;
 }
+
 button {
   border: 0;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -361,24 +397,29 @@ button {
   color: #311f1f;
   margin: 3vh 2vw;
 }
+
 @media screen and (max-width: 1025px) {
   .ShowQuestion {
     margin-top: 6vh;
   }
+
   .question {
     margin: 0;
     width: 90%;
   }
 }
+
 @media screen and (max-width: 550px) {
   .buttons {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
+
   .buttons button {
     width: 80%;
   }
+
   .card {
     display: grid;
     grid-template-areas:
@@ -388,11 +429,13 @@ button {
       "status accept";
     grid-template-columns: 50% 50%;
   }
+
   .card-img {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
   }
+
   .card-img img {
     max-width: 100px;
     margin-right: 7vw;

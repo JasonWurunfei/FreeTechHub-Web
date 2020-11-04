@@ -5,11 +5,17 @@
       <div v-if="is_root == true ">
         <div v-if="is_reply == true">
           <mavon-editor :ishljs="true" :preview="true" v-model="comment_content" placeholder="What do you want to post" />
-          <el-button @click="saveComment(comment_tree.comment)">Post a comment</el-button>
-          <el-button @click="is_reply = false">Cancel</el-button>
+          <el-row type="flex" justify="center">
+            <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+              <el-button class="button1" @click="saveComment(comment_tree.comment)">Post a comment</el-button>
+            </el-col>
+            <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+              <el-button class="button1" @click="is_reply = false">Cancel</el-button>
+            </el-col>
+          </el-row>
         </div>
         <div v-else>
-          <el-button @click="is_reply = true">replyToAnswer</el-button>
+          <el-link style=" font-size:20px; word-wrap:break-word;word-break:normal; " icon="el-icon-edit-outline" :underline="false" @click="is_reply = true">Add a comment</el-link>
         </div>
       </div>
     </div>
@@ -24,7 +30,7 @@
             <el-row type="flex" justify="center">
               <el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5">
                 <router-link :to="{name: 'ProfileInformation', params: {id: comment_tree.comment.owner_instance.pk}}" class="comment-username">
-                  <i>{{ comment_tree.comment.owner_instance.username }}</i>
+                  <i class="usnae">{{ comment_tree.comment.owner_instance.username }}</i>
                 </router-link>
               </el-col>
               <el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9">
@@ -184,26 +190,18 @@ export default {
   font-family: STFQLBYTJW
 }
 
-
 li {
   list-style: none;
-}
-
-.card-header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
 }
 
 .avatar {
   border-radius: 50%;
   width: 70%;
-  margin: 10px;
   border-radius: 50%;
 }
 
 .comment-username {
+  line-height: 1.5rem;
   font-size: 200%;
   color: black;
   font-weight: bold
