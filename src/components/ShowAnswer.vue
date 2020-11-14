@@ -38,6 +38,11 @@
               <p style="margin-left: 10%; line-height:5px ;">{{ answer.disagree_num }}</p>
               <img src="@/assets/img/disagree-o.svg" @click="disagree" v-if="history=='disliked'" alt="dislike-icon" />
               <img src="@/assets/img/disagree.svg" @click="disagree" v-else alt="dislike-icon" />
+                          <div class="right" v-if="answer.status == true">
+                <i class="el-icon-check" style="font-size:60px;color:green; font-weight:900;"></i>
+                </div>
+                <div class="right" v-else>
+                </div>
             </div>
           </el-col>
           <el-col :xs="21" :sm="21" :md="21" :lg="21" :xl="21">
