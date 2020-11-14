@@ -9,7 +9,6 @@
               <el-col :span="24">
                 <p id="title" @click="show_question(question.pk)"> {{ question.title | ellipsis }}</p>
                 <p id="date"><i class="el-icon-date"></i>{{ question.date }}</p>
-                <div v-html="$options.filters.stringfilter(question.html_content)" v-highlight></div>
                 <el-link type="primary" @click="show_question(question.pk)">Continue reading</el-link>
                 <el-divider></el-divider>
               </el-col>
@@ -125,7 +124,7 @@ export default {
 #date {
   color: #c3c3c3;
   font-size: smaller;
-
+  margin-top: 40px;
 }
 
 #content {
