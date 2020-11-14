@@ -1,46 +1,50 @@
 <template>
-  <div class="questiondetail">
-    <el-card class="box-card">
-      <div class="question">
-        <div class="name">
-          <h2 align="center">{{question.title}}</h2>
-        </div>
-        <el-divider></el-divider>
-        <div class="content">
-          <p v-html="question.content"></p>
-        </div>
+<div class="questiondetail">
+  <el-card class="box-card">
+    <div class="question">
+      <div class="name">
+        <h2 align="center">{{question.title}}</h2>
       </div>
-    </el-card>
-    <div class="box">
-      <div id="box2">游览量: <p>{{question.viewTimes}}</p>
-      </div>
-      <div id="box3">发布时间: <p>{{question.date}}</p>
+      <el-divider></el-divider>
+      <div class="content">
+        <div v-html="question.html_content" v-highlight></div>
       </div>
     </div>
-    <div class="buttongroup">
-      <el-button @click="editQuestion" id="beeten" round type="warning">Edit</el-button>
-      <el-button @click="deleteQuestion" id="beeten" round type="danger">Delete</el-button>
+  </el-card>
+  <div class="box">
+    <div id="box2">游览量: <p>{{question.viewTimes}}</p>
+    </div>
+    <div id="box3">发布时间: <p>{{question.date}}</p>
     </div>
   </div>
+  <div class="buttongroup" v-if="user.pk == question.owner">
+    <el-button @click="editQuestion" id="beeten" round type="warning">Edit</el-button>
+    <el-button @click="deleteQuestion" id="beeten" round type="danger">Delete</el-button>
+  </div>
+</div>
 </template>
 
 <script>
-import { login_required } from "@/assets/utils/auth";
+import {
+  login_required
+} from "@/assets/utils/auth";
 import Question from "@/assets/utils/models/Question";
 
 export default {
   props: ['ownerquestion_id'],
   data() {
     return {
-      question:'',
-      user:'',
+      question: '',
+      user: '',
       question_id: '',
     }
   },
-  methods:{
+  methods: {
     deleteQuestion() {
       this.question.delete().then(() => {
-        this.$router.push({name: 'ShowQuestions'})
+        this.$router.push({
+          name: 'ShowQuestions'
+        })
       })
     },
     editQuestion() {
@@ -52,11 +56,11 @@ export default {
       })
     },
     load() {
-      if(this.ownerquestion_id)
-      { this.question_id = this.ownerquestion_id
+      if (this.ownerquestion_id) {
+        this.question_id = this.ownerquestion_id
         Question.get(this.question_id).then(question => {
-        this.question = question
-       })
+          this.question = question
+        })
       }
     }
 
@@ -73,45 +77,53 @@ export default {
   },
 
 }
-
 </script>
 
 <style scoped>
-.name{
+.name {
   font-family: "Helvetica Neue";
   font-size: 25px;
 }
-.content{
-  text-indent:2em;
-  font-family:STFQLBYTJW;
-  font-size:30px;
-  overflow: auto
+
+.content {
+  height: 50vh;
+  display: flex;
+  text-indent: 2em;
+  font-family: STFQLBYTJW;
+  font-size: 30px;
+  overflow: scroll;
+
 }
-#beeten{
+
+#beeten {
   font-size: 35px;
 }
-.questiondetail{
+
+.questiondetail {
   display: grid;
   grid-gap: 10px;
   grid-template-areas: 'question 					box'
-                       'buttongroup 	box';
+    'buttongroup 	box';
   grid-template-columns: 70% 30%;
   grid-template-rows: 70% 30%;
   align-content: center;
   background: #fafbff;
 }
-.question{
+
+.question {
   border: none;
   grid-area: question;
 }
-.box{
+
+.box {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   grid-area: box;
 }
-.box div{
+
+.box div {
   width: 150px;
   height: 80px;
   border: 1.5px dashed black;
@@ -120,19 +132,20 @@ export default {
   text-align: center;
 }
 
-.buttongroup{
+.buttongroup {
   grid-area: buttongroup;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
 }
-.buttongroup button{
+
+.buttongroup button {
   margin: 10px;
   outline: none;
 }
 
-.edit{
+.edit {
   width: 60px;
   height: 40px;
   border: none;
@@ -140,7 +153,8 @@ export default {
   background-color: paleturquoise;
   color: white;
 }
-.delete{
+
+.delete {
   width: 60px;
   height: 40px;
   border: none;

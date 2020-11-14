@@ -1,26 +1,26 @@
 <template>
-  <div class="ProfileBlogs">
-      <div class="BlogList">
-        <el-row :gutter="20">
-          <el-col :span="24">
-            <li id="type" v-for="question in questions" :key="question.id" @click="change(question)" >
-              <ul>
-              <el-row>
-                <el-col :span="24">
-                  <p id="title" @click="show_question(question.pk)"> {{ question.title }}</p>
-                  <p id="date"><i class="el-icon-date"></i>{{ question.date }}</p>
-                  <p v-html="$options.filters.stringfilter(question.content)"></p>
-                  <el-link type="primary" @click="show_question(question.pk)">Continue reading</el-link>
-                  <el-divider></el-divider>
-                </el-col>
-              </el-row>
-              </ul>
-            </li>
-          </el-col>
-        </el-row>
-      </div>
-    <QuestionDetail :ownerquestion_id="ownerquestion_id" class="QuestionDetail"/>
+<div class="ProfileBlogs">
+  <div class="BlogList">
+    <el-row :gutter="20">
+      <el-col :span="24">
+        <li id="type" v-for="question in questions" :key="question.id" @click="change(question)">
+          <ul>
+            <el-row>
+              <el-col :span="24">
+                <p id="title" @click="show_question(question.pk)"> {{ question.title | ellipsis }}</p>
+                <p id="date"><i class="el-icon-date"></i>{{ question.date }}</p>
+                <div v-html="$options.filters.stringfilter(question.html_content)" v-highlight></div>
+                <el-link type="primary" @click="show_question(question.pk)">Continue reading</el-link>
+                <el-divider></el-divider>
+              </el-col>
+            </el-row>
+          </ul>
+        </li>
+      </el-col>
+    </el-row>
   </div>
+  <QuestionDetail :ownerquestion_id="ownerquestion_id" class="QuestionDetail" />
+</div>
 </template>
 
 <script>
@@ -28,24 +28,33 @@ import Question from '@/assets/utils/models/Question'
 import QuestionDetail from '@/views/Profile/ProfileQuestionDetail.vue'
 
 export default {
-  components:{
+  components: {
     QuestionDetail
+  },
+  filters: {
+    ellipsis(value) {
+      if (!value) return ''
+      if (value.length > 10) {
+        return value.slice(0, 10) + '...'
+      }
+      return value
+    }
   },
   data() {
     return {
-      questions:'',
-      ownerquestion_id:'',
-      selected:-1
+      questions: '',
+      ownerquestion_id: '',
+      selected: -1
     }
   },
   methods: {
-    change(item){
-      this.selected=item.id;
+    change(item) {
+      this.selected = item.id;
     },
     show_question(id) {
       this.ownerquestion_id = id
     },
-  } ,
+  },
   created() {
     Question.getOwnerQuestion(this.$route.params.id).then(questions => {
       this.questions = questions
@@ -98,11 +107,9 @@ export default {
 
 #sum {
   font-size: 20px;
-  /* margin:10px */
 }
 
 #star {
-  /* margin:10px; */
   font-size: 30px;
   color: dimgray;
   font-family: STFQLBYTJW;
