@@ -1,26 +1,26 @@
 <template>
-  <div class="ProfileBlogs">
-      <div class="BlogList">
-        <el-row :gutter="20">
-          <el-col :span="24">
-            <li id="type" v-for="blog in blogs" :key="blog.id" @click="change(blog)">
-              <ul>
-                <el-row>
-                  <el-col :span="24">
-                    <p id="title" @click="show_blog(blog.pk)"> {{ blog.title }}</p>
-                    <p id="date"><i class="el-icon-date"></i>{{ blog.date }}</p>
-                    <p id="content">{{ blog.content | ellipsis}}</p>
-                    <el-link type="primary" @click="show_blog(blog.pk)">Continue reading</el-link>
-                    <el-divider></el-divider>
-                  </el-col>
-                </el-row>
-              </ul>
-            </li>
-          </el-col>
-        </el-row>
-      </div>
-    <BlogDetail :ownerblog_id="ownerblog_id" class="BlogDetail"/>
+<div class="ProfileBlogs">
+  <div class="BlogList">
+    <el-row :gutter="20">
+      <el-col :span="24">
+        <li id="type" v-for="blog in blogs" :key="blog.id" @click="change(blog)">
+          <ul>
+            <el-row>
+              <el-col :span="24">
+                <p id="title" @click="show_blog(blog.pk)"> {{ blog.title | ellipsis }}</p>
+                <p id="date"><i class="el-icon-date"></i>{{ blog.date }}</p>
+                <div v-html="$options.filters.stringfilter(blog.html_content)" v-highlight></div>
+                <el-link type="primary" @click="show_blog(blog.pk)">Continue reading</el-link>
+                <el-divider></el-divider>
+              </el-col>
+            </el-row>
+          </ul>
+        </li>
+      </el-col>
+    </el-row>
   </div>
+  <BlogDetail :ownerblog_id="ownerblog_id" class="BlogDetail" />
+</div>
 </template>
 
 <script>
@@ -28,33 +28,33 @@ import Blog from '@/assets/utils/models/Blog'
 import BlogDetail from '@/views/Profile/ProfileBlogDetail.vue'
 
 export default {
-  components:{
+  components: {
     BlogDetail
   },
   filters: {
-    ellipsis (value) {
+    ellipsis(value) {
       if (!value) return ''
-      if (value.length > 15) {
-        return value.slice(0,15) + '...'
+      if (value.length > 10) {
+        return value.slice(0, 10) + '...'
       }
       return value
     }
   },
   data() {
     return {
-      blogs:'',
-      ownerblog_id:'',
-      selected:-1
+      blogs: '',
+      ownerblog_id: '',
+      selected: -1
     }
   },
   methods: {
-    change(item){
-      this.selected=item.id;
+    change(item) {
+      this.selected = item.id;
     },
     show_blog(id) {
       this.ownerblog_id = id
     },
-  } ,
+  },
   created() {
     Blog.getOwnerBlog(this.$route.params.id).then(blogs => {
       this.blogs = blogs

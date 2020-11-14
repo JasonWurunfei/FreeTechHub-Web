@@ -130,7 +130,6 @@ import Transaction from '@/assets/utils/models/Transaction';
 import ShowComments from '@/components/ShowComments.vue';
 import renderMath from "@/assets/utils/renderMath"
 import User from '@/assets/utils/models/User.js'
-
 export default {
   name: "ShowAnswers",
   props: ['_answer', 'question', 'answersHistory', '_is_accepted', '_user'],
@@ -161,7 +160,6 @@ export default {
         description: this.question.title,
       })
     },
-
     _getAnswer(answer) {
       return new Answer({
         id: this.id,
@@ -170,7 +168,6 @@ export default {
         question: answer.question.pk,
       })
     },
-
     acceptAnswer(answer) {
       answer.status = true
       answer.update().then(() => {
@@ -188,29 +185,24 @@ export default {
         })
       })
     },
-
     editing() {
       this.is_editing = true
     },
-
     refreshAnswer(answer) {
       Answer.get(answer.pk).then(answer => {
         this.answer = answer
       })
     },
-
     saveAnswer(answer) {
       answer.update().then(() => {
         this.refreshAnswer(answer)
         this.is_editing = false
       })
     },
-
     cancel(answer) {
       this.refreshAnswer(answer)
       this.is_editing = false
     },
-
     toggleChildren(answer) {
       if (this.fold == true) {
         Comment.query_sub_comments(answer.root_comment)
@@ -220,11 +212,9 @@ export default {
       }
       this.fold = !this.fold
     },
-
     updatedTree(wrapped_comment_tree) {
       this.wrapped_tree = wrapped_comment_tree
     },
-
     agree() {
       this.answer.agree().then(() => {
         this.answer.getAgreeHistory()
@@ -232,7 +222,6 @@ export default {
             // if disliked before, cancel it
             if (this.history == 'disliked')
               this.answer.disagree_num -= 1
-
             this.history = history
             if (history == 'none')
               this.answer.agree_num -= 1
@@ -241,7 +230,6 @@ export default {
           })
       })
     },
-
     disagree() {
       this.answer.disagree().then(() => {
         this.answer.getAgreeHistory()
@@ -258,7 +246,6 @@ export default {
       })
     }
   },
-
   created() {
     this._answer.getHistory(this.answersHistory).then(history => {
       this.history = history
@@ -272,18 +259,15 @@ export default {
   list-style: none;
   font-family: STFQLBYTJW;
 }
-
 img {
   width: 30%;
   border-radius: 50%;
 }
-
 .avatar {
   border-radius: 50%;
   width: 80%;
   border-radius: 50%;
 }
-
 .button1 {
   display: flex;
   flex-direction: column;
